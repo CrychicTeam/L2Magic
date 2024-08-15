@@ -119,6 +119,8 @@ public class EngineRegistry {
 	public static final Val<ProcessorType<PropertyProcessor>> PROP = REG.reg("property", () -> PropertyProcessor.CODEC);
 	public static final Val<ProcessorType<TeleportProcessor>> TP = REG.reg("teleport", () -> TeleportProcessor.CODEC); //TODO docs
 	public static final Val<ProcessorType<IgniteProcessor>> IGNITE = REG.reg("ignite", () -> IgniteProcessor.CODEC); //TODO docs
+	public static final Val<ProcessorType<EffectConditionProcessor>> EFFECT_CONDITION = REG.reg("effect_condition", () -> EffectConditionProcessor.CODEC); //TODO docs
+	public static final Val<ProcessorType<CastAtProcessor>> CAST_AT = REG.reg("cast_at", () -> CastAtProcessor.CODEC); //TODO docs
 
 	public static final Val<MotionType<SimpleMotion>> SIMPLE_MOTION = REG.reg("simple", () -> SimpleMotion.CODEC); // TODO doc
 	public static final Val<MotionType<MovePosMotion>> MOVE_MOTION = REG.reg("control_position", () -> MovePosMotion.CODEC);//TODO doc

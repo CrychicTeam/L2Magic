@@ -10,7 +10,9 @@ import dev.xkmc.l2magic.init.data.spell.fire.FlameSpells;
 import dev.xkmc.l2magic.init.data.spell.fire.MagmaShield;
 import dev.xkmc.l2magic.init.data.spell.ground.EarthSpike;
 import dev.xkmc.l2magic.init.data.spell.ground.MagnetCore;
+import dev.xkmc.l2magic.init.data.spell.ice.FrostNova;
 import dev.xkmc.l2magic.init.data.spell.ice.IcyFlash;
+import dev.xkmc.l2magic.init.data.spell.ice.IcyShatter;
 import dev.xkmc.l2magic.init.data.spell.ice.WinterStorm;
 
 import java.util.List;
@@ -29,7 +31,9 @@ public class SpellDataGenRegistry {
 			new EchoSpells(),
 			new FlameCharge(),  // id:3300
 			new MagmaShield(),  // id:3400
-			new FlamePillar()	// id:3500
+			new FlamePillar(), 	// id:3500
+			new FrostNova(),  // id:3600
+			new IcyShatter()  // id:3700
 	);
 
 }

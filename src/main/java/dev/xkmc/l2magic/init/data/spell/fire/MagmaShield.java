@@ -9,9 +9,7 @@ import dev.xkmc.l2magic.content.engine.logic.ListLogic;
 import dev.xkmc.l2magic.content.engine.logic.MoveEngine;
 import dev.xkmc.l2magic.content.engine.logic.PredicateLogic;
 import dev.xkmc.l2magic.content.engine.logic.ProcessorEngine;
-import dev.xkmc.l2magic.content.engine.modifier.ForwardOffsetModifier;
-import dev.xkmc.l2magic.content.engine.modifier.SetDirectionModifier;
-import dev.xkmc.l2magic.content.engine.modifier.ToCurrentCasterPosModifier;
+import dev.xkmc.l2magic.content.engine.modifier.SetPosModifier;
 import dev.xkmc.l2magic.content.engine.particle.DustParticleInstance;
 import dev.xkmc.l2magic.content.engine.processor.*;
 import dev.xkmc.l2magic.content.engine.selector.ApproxCylinderSelector;
@@ -74,13 +72,11 @@ public class MagmaShield extends SpellDataGenEntry {
                         IntVariable.of("1"),
                         new MoveEngine(
                                 List.of(
-                                        new ToCurrentCasterPosModifier(),
-                                        new SetDirectionModifier(
-                                                DoubleVariable.ZERO,
-                                                DoubleVariable.of("1"),
-                                                DoubleVariable.ZERO
-                                        ),
-                                        new ForwardOffsetModifier(DoubleVariable.of("0.95"))
+                                        new SetPosModifier(
+                                                DoubleVariable.of("CasterX"),
+                                                DoubleVariable.of("CasterY+0.95"),
+                                                DoubleVariable.of("CasterZ")
+                                        )
                                 ),
                                 new ListLogic(List.of(
                                         new PredicateLogic(  // Damage
