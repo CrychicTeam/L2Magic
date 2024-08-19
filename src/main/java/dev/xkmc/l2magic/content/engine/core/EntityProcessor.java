@@ -16,4 +16,6 @@ public interface EntityProcessor<T extends Record & EntityProcessor<T>> extends 
 
 	void process(Collection<LivingEntity> le, EngineContext ctx);
 
+	boolean serverOnly();
+
 }

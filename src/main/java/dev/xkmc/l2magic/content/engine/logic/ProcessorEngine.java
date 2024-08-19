@@ -32,6 +32,12 @@ public record ProcessorEngine(
 
 	@Override
 	public void execute(EngineContext ctx) {
+		if (ctx.user().level().isClientSide()) {
+			boolean server = true;
+			for (var e : processors)
+				server &= !e.serverOnly();
+			if (server) return;
+		}
 		var set = selector().find(ctx.user().level(), ctx, target);
 		for (var p : processors()) {
 			p.process(set, ctx);

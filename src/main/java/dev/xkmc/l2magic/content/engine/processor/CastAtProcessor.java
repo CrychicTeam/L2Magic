@@ -63,4 +63,10 @@ public record CastAtProcessor(
 			ctx.execute(LocationContext.of(p, d), child);
 		}
 	}
+
+	@Override
+	public boolean serverOnly() {
+		return false;
+	}
+
 }

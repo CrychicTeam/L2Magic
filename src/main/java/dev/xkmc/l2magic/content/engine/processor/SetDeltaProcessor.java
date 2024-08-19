@@ -17,7 +17,7 @@ public record SetDeltaProcessor(
 		DoubleVariable x,
 		DoubleVariable y,
 		DoubleVariable z
-) implements EntityProcessor<SetDeltaProcessor> {
+) implements SimpleServerProcessor<SetDeltaProcessor> {
 
 	public static final SetDeltaProcessor ZERO = new SetDeltaProcessor(
 			DoubleVariable.ZERO, DoubleVariable.ZERO, DoubleVariable.ZERO

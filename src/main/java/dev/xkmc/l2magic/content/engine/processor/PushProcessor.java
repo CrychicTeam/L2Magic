@@ -4,7 +4,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.xkmc.l2magic.content.engine.context.EngineContext;
-import dev.xkmc.l2magic.content.engine.core.EntityProcessor;
 import dev.xkmc.l2magic.content.engine.core.ProcessorType;
 import dev.xkmc.l2magic.content.engine.helper.EngineHelper;
 import dev.xkmc.l2magic.content.engine.helper.Orientation;
@@ -22,7 +21,7 @@ public record PushProcessor(
 		DoubleVariable angle,
 		DoubleVariable tilt,
 		PushProcessor.Type vector
-) implements EntityProcessor<PushProcessor> {
+) implements SimpleServerProcessor<PushProcessor> {
 
 	public enum Type {
 		UNIFORM, TO_CENTER, TO_BOTTOM, HORIZONTAL

@@ -5,7 +5,6 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.xkmc.l2core.base.effects.EffectUtil;
 import dev.xkmc.l2magic.content.engine.context.EngineContext;
-import dev.xkmc.l2magic.content.engine.core.EntityProcessor;
 import dev.xkmc.l2magic.content.engine.core.ProcessorType;
 import dev.xkmc.l2magic.content.engine.variable.IntVariable;
 import dev.xkmc.l2magic.init.registrate.EngineRegistry;
@@ -24,7 +23,7 @@ public record EffectProcessor(
 		IntVariable duration,
 		IntVariable amplifier,
 		boolean ambient, boolean visible
-) implements EntityProcessor<EffectProcessor> {
+) implements SimpleServerProcessor<EffectProcessor> {
 
 	public static final MapCodec<EffectProcessor> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
 			BuiltInRegistries.MOB_EFFECT.holderByNameCodec().fieldOf("effect").forGetter(e -> e.eff),

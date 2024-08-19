@@ -4,7 +4,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.xkmc.l2magic.content.engine.context.EngineContext;
-import dev.xkmc.l2magic.content.engine.core.EntityProcessor;
 import dev.xkmc.l2magic.content.engine.core.ProcessorType;
 import dev.xkmc.l2magic.content.engine.helper.EngineHelper;
 import dev.xkmc.l2magic.content.engine.variable.IntVariable;
@@ -20,7 +19,7 @@ import java.util.function.Function;
 public record PropertyProcessor(
 		Type property,
 		IntVariable duration
-) implements EntityProcessor<PropertyProcessor> {
+) implements SimpleServerProcessor<PropertyProcessor> {
 
 	public enum Type {
 		IGNITE(Entity::getRemainingFireTicks, Entity::setRemainingFireTicks),

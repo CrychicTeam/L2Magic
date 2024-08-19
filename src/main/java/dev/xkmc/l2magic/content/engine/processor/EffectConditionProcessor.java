@@ -50,4 +50,16 @@ public record EffectConditionProcessor(
 		else return e.hasEffect(eff);
 	}
 
+	@Override
+	public boolean serverOnly() {
+		for (var e : action)
+			if (!e.serverOnly())
+				return false;
+		for (var e : fallback)
+			if (!e.serverOnly())
+				return false;
+		return true;
+	}
+
+
 }

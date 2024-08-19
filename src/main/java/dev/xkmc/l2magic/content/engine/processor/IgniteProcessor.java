@@ -17,26 +17,34 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public record IgniteProcessor(
-        List<EntityProcessor<?>> action,
-        IntVariable burnTicks
+		List<EntityProcessor<?>> action,
+		IntVariable burnTicks
 ) implements EntityProcessor<IgniteProcessor> {
-    public static final MapCodec<IgniteProcessor> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
-            Codec.list(EntityProcessor.CODEC).fieldOf("action").forGetter(e -> e.action),
-            IntVariable.codec("burnTicks", e -> e.burnTicks)
-    ).apply(i, IgniteProcessor::new));
+	public static final MapCodec<IgniteProcessor> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
+			Codec.list(EntityProcessor.CODEC).fieldOf("action").forGetter(e -> e.action),
+			IntVariable.codec("burnTicks", e -> e.burnTicks)
+	).apply(i, IgniteProcessor::new));
 
-    @Override
-    public ProcessorType<IgniteProcessor> type() {
-        return EngineRegistry.IGNITE.get();
-    }
+	@Override
+	public ProcessorType<IgniteProcessor> type() {
+		return EngineRegistry.IGNITE.get();
+	}
 
-    @Override
-    public void process(Collection<LivingEntity> le, EngineContext ctx) {
-        if (!(ctx.user().level() instanceof ServerLevel)) return;
-        Map<Boolean, List<LivingEntity>> partitioned = le.stream()
-                .collect(Collectors.partitioningBy(LivingEntity::isOnFire));
-        if (action().size() > 0)
-            action().forEach(p->p.process(partitioned.get(true), ctx));
-        le.forEach(e-> e.igniteForTicks(burnTicks.eval(ctx)));
-    }
+	@Override
+	public void process(Collection<LivingEntity> le, EngineContext ctx) {
+		if (!(ctx.user().level() instanceof ServerLevel)) return;
+		Map<Boolean, List<LivingEntity>> partitioned = le.stream()
+				.collect(Collectors.partitioningBy(LivingEntity::isOnFire));
+		action().forEach(p -> p.process(partitioned.get(true), ctx));
+		le.forEach(e -> e.igniteForTicks(burnTicks.eval(ctx)));
+	}
+
+	@Override
+	public boolean serverOnly() {
+		for (var e : action)
+			if (!e.serverOnly())
+				return false;
+		return true;
+	}
+
 }

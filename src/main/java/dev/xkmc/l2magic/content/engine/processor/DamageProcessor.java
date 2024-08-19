@@ -6,7 +6,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.xkmc.l2damagetracker.contents.attack.AttackEventHandler;
 import dev.xkmc.l2damagetracker.contents.attack.CreateSourceEvent;
 import dev.xkmc.l2magic.content.engine.context.EngineContext;
-import dev.xkmc.l2magic.content.engine.core.EntityProcessor;
 import dev.xkmc.l2magic.content.engine.core.ProcessorType;
 import dev.xkmc.l2magic.content.engine.variable.DoubleVariable;
 import dev.xkmc.l2magic.init.registrate.EngineRegistry;
@@ -26,7 +25,7 @@ public record DamageProcessor(
 		DoubleVariable damage,
 		boolean indirect,
 		boolean positioned
-) implements EntityProcessor<DamageProcessor> {
+) implements SimpleServerProcessor<DamageProcessor> {
 
 	private static final Codec<Holder<DamageType>> DAMAGE_TYPE_CODEC =
 			RegistryFileCodec.create(Registries.DAMAGE_TYPE, DamageType.DIRECT_CODEC, false);
