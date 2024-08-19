@@ -10,7 +10,6 @@ import dev.xkmc.l2magic.content.engine.core.EntityProcessor;
 import dev.xkmc.l2magic.content.engine.core.EntitySelector;
 import dev.xkmc.l2magic.content.engine.selector.SelectionType;
 import dev.xkmc.l2magic.init.registrate.EngineRegistry;
-import net.minecraft.server.level.ServerLevel;
 
 import java.util.List;
 
@@ -33,8 +32,7 @@ public record ProcessorEngine(
 
 	@Override
 	public void execute(EngineContext ctx) {
-		if (!(ctx.user().level() instanceof ServerLevel sl)) return;
-		var set = selector().find(sl, ctx, target);
+		var set = selector().find(ctx.user().level(), ctx, target);
 		for (var p : processors()) {
 			p.process(set, ctx);
 		}

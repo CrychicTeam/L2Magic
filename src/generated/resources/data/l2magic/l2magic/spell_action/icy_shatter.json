@@ -85,14 +85,14 @@
                   "positioned": true
                 }
               ],
-              "effect": "minecraft:slowness",
+              "effect": "l2complements:frozen",
               "fallback": [
                 {
                   "type": "l2magic:effect",
                   "ambient": false,
                   "amplifier": "0",
                   "duration": "15",
-                  "effect": "minecraft:slowness",
+                  "effect": "l2complements:frozen",
                   "visible": false
                 }
               ]

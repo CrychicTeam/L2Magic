@@ -36,6 +36,7 @@
                   },
                   {
                     "type": "l2magic:ignite",
+                    "action": [],
                     "burnTicks": "200"
                   }
                 ],

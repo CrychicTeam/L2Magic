@@ -1,4 +1,4 @@
-// 1.21	2024-08-19T15:02:30.661751	L2Magic Spell Data
+// 1.21.1	2024-08-19T16:10:03.692027	L2Magic Spell Data
 3c6b722e62eec15c1de3d1869c2064d8139ae53c data/l2magic/l2magic/projectile/circular_projectile.json
 36ef9f9b96663a7532afc93d4eac0fd98f8d9f12 data/l2magic/l2magic/spell_action/circular.json
 8cbb8a02866972622f021a996a3e83d5d6283257 data/l2magic/l2magic/spell_action/circular_entity.json
@@ -10,14 +10,14 @@ c413745b9be0eda42c3ac67a515de9e44aae7c7e data/l2magic/l2magic/spell_action/earth
 eb467ee3e5b259e9673ae1546ca46a4ca19299aa data/l2magic/l2magic/spell_action/echo_rings.json
 29320ec774bd2ba1f2ae207d4e7ca8136828e9fc data/l2magic/l2magic/spell_action/flame_burst.json
 eb3094aa1d63f0c01e06f61e6a987b729f743b1d data/l2magic/l2magic/spell_action/flame_charge.json
-50f149a5166cbb385a4023e5b418ca4a2c6c6dae data/l2magic/l2magic/spell_action/flame_pillar.json
+f537a17cfdbc8019f6b636ad5937eeb6001ffc73 data/l2magic/l2magic/spell_action/flame_pillar.json
 f725da1079e4afe7b988a7dae88791be9e83dd5c data/l2magic/l2magic/spell_action/floor.json
 b27dd60ca24d0f13e9dd58c6f289baa8d1181503 data/l2magic/l2magic/spell_action/frost_nova.json
 11896d7c8c8954a9696d8b7cce030b6b7271cbed data/l2magic/l2magic/spell_action/icy_flash.json
-d424486f6d3f4139ad2b2ae29da2cc22ae381716 data/l2magic/l2magic/spell_action/icy_shatter.json
+c931a66000c3f3680615a42907337ffbf6510826 data/l2magic/l2magic/spell_action/icy_shatter.json
 dad975d90802e9ceb4b2717e40614f0edd52299b data/l2magic/l2magic/spell_action/magic_arrow_ring.json
 99325a02cf69cb59ff623c6c12f2af38bb31f98e data/l2magic/l2magic/spell_action/magic_arrows.json
-7ba07d575a056e9bc2297f71892dd7178e273548 data/l2magic/l2magic/spell_action/magma_shield.json
+91ff7c065e06a05baacd2c04ebc89b084e7d2c97 data/l2magic/l2magic/spell_action/magma_shield.json
 83441dfbe86a0a5dc521af232a393762b20c6bfc data/l2magic/l2magic/spell_action/magnet_core.json
 cc161b62219e1fe4a4da1cfeb6960ed6bf342c61 data/l2magic/l2magic/spell_action/master_spark.json
 735d20ae8a7c594e34af48456189d0014c619c6e data/l2magic/l2magic/spell_action/melt.json
