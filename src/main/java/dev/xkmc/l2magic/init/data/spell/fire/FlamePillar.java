@@ -84,6 +84,7 @@ public class FlamePillar extends SpellDataGenEntry {
                                                         new DamageProcessor(ctx.damage(DamageTypes.LAVA),
                                                                 DoubleVariable.of("10"), true, true),
                                                         new IgniteProcessor(
+                                                                List.of(),
                                                                 IntVariable.of("200")
                                                         )
                                                 )
