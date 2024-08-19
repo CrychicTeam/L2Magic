@@ -5,17 +5,12 @@
       {
         "type": "l2magic:move",
         "child": {
-          "type": "l2magic:list",
-          "children": [
-            {
-              "type": "l2magic:block_particle",
-              "block": "minecraft:blue_ice",
-              "breaking": false,
-              "life": "300",
-              "scale": "4",
-              "speed": "0"
-            }
-          ]
+          "type": "l2magic:block_particle",
+          "block": "minecraft:packed_ice",
+          "breaking": false,
+          "life": "300",
+          "scale": "4",
+          "speed": "0"
         },
         "modifiers": [
           {
@@ -27,12 +22,59 @@
         ]
       },
       {
+        "type": "l2magic:move",
+        "child": {
+          "type": "l2magic:iterate",
+          "child": {
+            "type": "l2magic:move",
+            "child": {
+              "type": "l2magic:dust_particle",
+              "color": "ffff",
+              "life": "200",
+              "scale": "1",
+              "speed": "0.02"
+            },
+            "modifiers": [
+              {
+                "type": "l2magic:random_offset",
+                "shape": "RECT",
+                "x": "8",
+                "y": "4",
+                "z": "8"
+              },
+              {
+                "type": "l2magic:direction",
+                "x": "0",
+                "y": "-1",
+                "z": "0"
+              }
+            ]
+          },
+          "step": "500"
+        },
+        "modifiers": [
+          {
+            "type": "l2magic:random_offset",
+            "shape": "RECT",
+            "x": "8",
+            "y": "4",
+            "z": "8"
+          },
+          {
+            "type": "l2magic:direction",
+            "x": "0",
+            "y": "-1",
+            "z": "0"
+          }
+        ]
+      },
+      {
         "type": "l2magic:iterate_delayed",
         "child": {
           "type": "l2magic:processor",
           "processors": [
             {
-              "type": "l2magic:effect_condition",
+              "type": "l2magic:filtered",
               "action": [
                 {
                   "type": "l2magic:cast_at",
@@ -70,7 +112,7 @@
                             }
                           ]
                         },
-                        "step": "20"
+                        "step": "100"
                       }
                     ]
                   },
@@ -85,7 +127,6 @@
                   "positioned": true
                 }
               ],
-              "effect": "l2complements:frozen",
               "fallback": [
                 {
                   "type": "l2magic:effect",
@@ -95,12 +136,17 @@
                   "effect": "l2complements:frozen",
                   "visible": false
                 }
-              ]
+              ],
+              "filter": {
+                "type": "l2magic:effect",
+                "effect": "l2complements:frozen"
+              }
             }
           ],
           "selector": {
-            "type": "l2magic:cylinder",
-            "r": "8",
+            "type": "l2magic:box",
+            "center": false,
+            "size": "8",
             "y": "4"
           },
           "target": "ENEMY"
@@ -111,7 +157,7 @@
     ]
   },
   "cast_type": "INSTANT",
-  "icon": "minecraft:blue_ice",
+  "icon": "minecraft:packed_ice",
   "order": 3700,
   "trigger_type": "TARGET_POS"
 }

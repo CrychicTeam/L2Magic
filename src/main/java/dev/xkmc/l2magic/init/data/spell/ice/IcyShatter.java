@@ -4,6 +4,7 @@ import com.tterrag.registrate.providers.RegistrateLangProvider;
 import dev.xkmc.l2complements.init.registrate.LCEffects;
 import dev.xkmc.l2magic.content.engine.context.DataGenContext;
 import dev.xkmc.l2magic.content.engine.core.ConfiguredEngine;
+import dev.xkmc.l2magic.content.engine.filter.MobEffectFilter;
 import dev.xkmc.l2magic.content.engine.iterator.DelayedIterator;
 import dev.xkmc.l2magic.content.engine.iterator.LoopIterator;
 import dev.xkmc.l2magic.content.engine.logic.ListLogic;
@@ -17,9 +18,8 @@ import dev.xkmc.l2magic.content.engine.particle.DustParticleInstance;
 import dev.xkmc.l2magic.content.engine.particle.SimpleParticleInstance;
 import dev.xkmc.l2magic.content.engine.processor.CastAtProcessor;
 import dev.xkmc.l2magic.content.engine.processor.DamageProcessor;
-import dev.xkmc.l2magic.content.engine.processor.EffectConditionProcessor;
 import dev.xkmc.l2magic.content.engine.processor.EffectProcessor;
-import dev.xkmc.l2magic.content.engine.selector.ApproxCylinderSelector;
+import dev.xkmc.l2magic.content.engine.processor.FilteredProcessor;
 import dev.xkmc.l2magic.content.engine.selector.BoxSelector;
 import dev.xkmc.l2magic.content.engine.selector.SelectionType;
 import dev.xkmc.l2magic.content.engine.spell.SpellAction;
@@ -117,8 +117,8 @@ public class IcyShatter extends SpellDataGenEntry {
 										false
 								),
 								List.of(
-										new EffectConditionProcessor(
-												LCEffects.ICE,
+										new FilteredProcessor(
+												new MobEffectFilter(LCEffects.ICE),
 												List.of(
 														new CastAtProcessor(
 																CastAtProcessor.PosType.BOTTOM,

@@ -32,6 +32,11 @@ public record EngineReg(L2Registrate reg) {
 		return new Val.Registrate<>(reg.simple(id, EngineRegistry.PREDICATE.key(), () -> codec));
 	}
 
+	public <T extends Record & EntityFilter<T>> Val<FilterType<T>>
+	reg(String id, FilterType<T> codec) {
+		return new Val.Registrate<>(reg.simple(id, EngineRegistry.FILTER.key(), () -> codec));
+	}
+
 	public <T extends Record & EntityProcessor<T>> Val<ProcessorType<T>>
 	reg(String id, ProcessorType<T> codec) {
 		return new Val.Registrate<>(reg.simple(id, EngineRegistry.PROCESSOR.key(), () -> codec));

@@ -3,6 +3,10 @@ package dev.xkmc.l2magic.init.registrate;
 import dev.xkmc.l2core.init.reg.simple.Val;
 import dev.xkmc.l2magic.content.engine.block.*;
 import dev.xkmc.l2magic.content.engine.core.*;
+import dev.xkmc.l2magic.content.engine.filter.AndFilter;
+import dev.xkmc.l2magic.content.engine.filter.MobEffectFilter;
+import dev.xkmc.l2magic.content.engine.filter.NotFilter;
+import dev.xkmc.l2magic.content.engine.filter.OrFilter;
 import dev.xkmc.l2magic.content.engine.helper.EngineRegistryInstance;
 import dev.xkmc.l2magic.content.engine.iterator.*;
 import dev.xkmc.l2magic.content.engine.logic.*;
@@ -36,6 +40,7 @@ public class EngineRegistry {
 	public static final EngineRegistryInstance<EngineType<?>> ENGINE = EngineRegistryInstance.of("configured_engine");
 	public static final EngineRegistryInstance<ModifierType<?>> MODIFIER = EngineRegistryInstance.of("modifier");
 	public static final EngineRegistryInstance<PredicateType<?>> PREDICATE = EngineRegistryInstance.of("predicate");
+	public static final EngineRegistryInstance<FilterType<?>> FILTER = EngineRegistryInstance.of("filter");
 	public static final EngineRegistryInstance<SelectorType<?>> SELECTOR = EngineRegistryInstance.of("selector");
 	public static final EngineRegistryInstance<ProcessorType<?>> PROCESSOR = EngineRegistryInstance.of("processor");
 	public static final EngineRegistryInstance<MotionType<?>> MOTION = EngineRegistryInstance.of("motion");
@@ -110,6 +115,11 @@ public class EngineRegistry {
 	public static final Val<PredicateType<SurfaceBelowCondition>> SURFACE_BELOW = REG.reg("surface_below", () -> SurfaceBelowCondition.CODEC);//TODO docs
 	public static final Val<PredicateType<BlockTestCondition>> BLOCK_TEST = REG.reg("block_test", () -> BlockTestCondition.CODEC);//TODO docs
 
+	public static final Val<FilterType<AndFilter>> AND_FILTER = REG.reg("and", () -> AndFilter.CODEC);//TODO docs
+	public static final Val<FilterType<OrFilter>> OR_FILTER = REG.reg("or", () -> OrFilter.CODEC);//TODO docs
+	public static final Val<FilterType<NotFilter>> NOT_FILTER = REG.reg("not", () -> NotFilter.CODEC);//TODO docs
+	public static final Val<FilterType<MobEffectFilter>> EFFECT_FILTER = REG.reg("effect", () -> MobEffectFilter.CODEC);//TODO docs
+
 	public static final Val<ProcessorType<DamageProcessor>> DAMAGE = REG.reg("damage", () -> DamageProcessor.CODEC);
 	public static final Val<ProcessorType<KnockBackProcessor>> KB = REG.reg("knockback", () -> KnockBackProcessor.CODEC);
 	public static final Val<ProcessorType<PushProcessor>> PUSH_ENTITY = REG.reg("push", () -> PushProcessor.CODEC);
@@ -118,7 +128,7 @@ public class EngineRegistry {
 	public static final Val<ProcessorType<SetDeltaProcessor>> SET_DELTA = REG.reg("set_delta", () -> SetDeltaProcessor.CODEC);//TODO docs
 	public static final Val<ProcessorType<TeleportProcessor>> TP = REG.reg("teleport", () -> TeleportProcessor.CODEC); //TODO docs
 	public static final Val<ProcessorType<IgniteProcessor>> IGNITE = REG.reg("ignite", () -> IgniteProcessor.CODEC); //TODO docs
-	public static final Val<ProcessorType<EffectConditionProcessor>> EFFECT_CONDITION = REG.reg("effect_condition", () -> EffectConditionProcessor.CODEC); //TODO docs
+	public static final Val<ProcessorType<FilteredProcessor>> FILTERED = REG.reg("filtered", () -> FilteredProcessor.CODEC); //TODO docs
 	public static final Val<ProcessorType<CastAtProcessor>> CAST_AT = REG.reg("cast_at", () -> CastAtProcessor.CODEC); //TODO docs
 
 	public static final Val<MotionType<SimpleMotion>> SIMPLE_MOTION = REG.reg("simple", () -> SimpleMotion.CODEC); // TODO doc
