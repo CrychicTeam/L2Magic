@@ -24,7 +24,7 @@ public record PushProcessor(
 ) implements EntityProcessor<PushProcessor> {
 
 	public enum Type {
-		UNIFORM, TO_CENTER, TO_BOTTOM
+		UNIFORM, TO_CENTER, TO_BOTTOM, HORIZONTAL
 	}
 
 	private static final Codec<Type> TYPE_CODEC = EngineHelper.enumCodec(Type.class, Type.values());
@@ -49,13 +49,17 @@ public record PushProcessor(
 		double angle = angle().eval(ctx);
 		double tilt = tilt().eval(ctx);
 		for (var e : le) {
-			var p = switch (vector) {
-				case UNIFORM -> ctx.loc().dir();
-				case TO_CENTER -> e.position().add(0, e.getBbHeight() / 2, 0).subtract(ctx.loc().pos()).normalize();
-				case TO_BOTTOM -> e.position().subtract(ctx.loc().pos()).normalize();
+			var ori = switch (vector) {
+				case UNIFORM -> ctx.loc().ori();
+				case TO_BOTTOM -> Orientation.fromForward(e.position()
+						.subtract(ctx.loc().pos()).normalize());
+				case TO_CENTER -> Orientation.fromForward(e.position()
+						.add(0, e.getBbHeight() / 2, 0).subtract(ctx.loc().pos()).normalize());
+				case HORIZONTAL -> Orientation.fromForward(e.position()
+						.subtract(ctx.loc().pos()).multiply(1, 0, 1).normalize());
 			};
+			var p = ori.forward();
 			if (angle != 0 || tilt != 0) {
-				var ori = Orientation.of(p, ctx.loc().normal());
 				p = ori.rotateDegrees(angle, tilt);
 			}
 			p = p.scale(kb);

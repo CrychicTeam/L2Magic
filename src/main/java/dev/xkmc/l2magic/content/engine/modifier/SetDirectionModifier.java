@@ -13,7 +13,7 @@ import net.minecraft.world.phys.Vec3;
 public record SetDirectionModifier(DoubleVariable x, DoubleVariable y, DoubleVariable z)
 		implements Modifier<SetDirectionModifier> {
 
-	public static MapCodec<SetDirectionModifier> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
+	public static final MapCodec<SetDirectionModifier> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
 			DoubleVariable.optionalCodec("x", SetDirectionModifier::x),
 			DoubleVariable.optionalCodec("y", SetDirectionModifier::y),
 			DoubleVariable.optionalCodec("z", SetDirectionModifier::z)
@@ -21,6 +21,16 @@ public record SetDirectionModifier(DoubleVariable x, DoubleVariable y, DoubleVar
 			x.orElse(DoubleVariable.ZERO),
 			y.orElse(DoubleVariable.ZERO),
 			z.orElse(DoubleVariable.ZERO))));
+
+	public static final SetDirectionModifier UP = of("0", "1", "0");
+
+	public static SetDirectionModifier of(String x, String y, String z) {
+		return new SetDirectionModifier(
+				DoubleVariable.of(x),
+				DoubleVariable.of(y),
+				DoubleVariable.of(z)
+		);
+	}
 
 	@Override
 	public ModifierType<SetDirectionModifier> type() {

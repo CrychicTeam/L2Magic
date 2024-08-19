@@ -13,7 +13,6 @@ import dev.xkmc.l2magic.content.engine.processor.*;
 import dev.xkmc.l2magic.content.engine.selector.*;
 import dev.xkmc.l2magic.content.engine.sound.SoundInstance;
 import dev.xkmc.l2magic.content.engine.spell.SpellAction;
-import dev.xkmc.l2magic.content.entity.core.Motion;
 import dev.xkmc.l2magic.content.entity.core.MotionType;
 import dev.xkmc.l2magic.content.entity.core.ProjectileConfig;
 import dev.xkmc.l2magic.content.entity.engine.ArrowShoot;
@@ -23,7 +22,6 @@ import dev.xkmc.l2magic.content.entity.motion.MoveDeltaMotion;
 import dev.xkmc.l2magic.content.entity.motion.MovePosMotion;
 import dev.xkmc.l2magic.content.entity.motion.SimpleMotion;
 import dev.xkmc.l2magic.content.entity.renderer.OrientedRenderData;
-import dev.xkmc.l2magic.content.entity.renderer.ProjectileRenderData;
 import dev.xkmc.l2magic.content.entity.renderer.ProjectileRenderType;
 import dev.xkmc.l2magic.content.particle.engine.*;
 import dev.xkmc.l2magic.init.L2Magic;
@@ -117,6 +115,7 @@ public class EngineRegistry {
 	public static final Val<ProcessorType<PushProcessor>> PUSH_ENTITY = REG.reg("push", () -> PushProcessor.CODEC);
 	public static final Val<ProcessorType<EffectProcessor>> EFFECT = REG.reg("effect", () -> EffectProcessor.CODEC);
 	public static final Val<ProcessorType<PropertyProcessor>> PROP = REG.reg("property", () -> PropertyProcessor.CODEC);
+	public static final Val<ProcessorType<SetDeltaProcessor>> SET_DELTA = REG.reg("set_delta", () -> SetDeltaProcessor.CODEC);//TODO docs
 	public static final Val<ProcessorType<TeleportProcessor>> TP = REG.reg("teleport", () -> TeleportProcessor.CODEC); //TODO docs
 
 	public static final Val<MotionType<SimpleMotion>> SIMPLE_MOTION = REG.reg("simple", () -> SimpleMotion.CODEC); // TODO doc

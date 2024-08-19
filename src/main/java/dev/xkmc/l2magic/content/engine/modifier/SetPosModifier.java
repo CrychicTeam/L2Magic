@@ -22,6 +22,16 @@ public record SetPosModifier(DoubleVariable x, DoubleVariable y, DoubleVariable 
 			y.orElse(DoubleVariable.ZERO),
 			z.orElse(DoubleVariable.ZERO))));
 
+	public static final SetPosModifier UP = of("0", "1", "0");
+
+	public static SetPosModifier of(String x, String y, String z) {
+		return new SetPosModifier(
+				DoubleVariable.of(x),
+				DoubleVariable.of(y),
+				DoubleVariable.of(z)
+		);
+	}
+
 	@Override
 	public ModifierType<SetPosModifier> type() {
 		return EngineRegistry.POSITION.get();

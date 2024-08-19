@@ -42,7 +42,7 @@ public record KnockBackProcessor(
 		for (var e : le) {
 			var p = e.position().subtract(ctx.loc().pos()).normalize();
 			if (angle != 0 || tilt != 0) {
-				var ori = Orientation.of(p, ctx.loc().normal());
+				var ori = Orientation.fromForward(p);
 				p = ori.rotateDegrees(angle, tilt);
 			}
 			p = p.multiply(1, 0, 1).normalize();
