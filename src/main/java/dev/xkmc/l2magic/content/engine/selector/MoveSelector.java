@@ -10,6 +10,7 @@ import dev.xkmc.l2magic.content.engine.core.SelectorType;
 import dev.xkmc.l2magic.init.registrate.EngineRegistry;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
 
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -28,11 +29,11 @@ public record MoveSelector(List<Modifier<?>> modifiers, EntitySelector<?> child)
 	}
 
 	@Override
-	public LinkedHashSet<LivingEntity> find(ServerLevel sl, EngineContext ctx, SelectionType type) {
+	public LinkedHashSet<LivingEntity> find(Level level, EngineContext ctx, SelectionType type) {
 		for (var e : modifiers) {
 			ctx = ctx.with(e.modify(ctx));
 		}
-		return child().find(sl, ctx, type);
+		return child().find(level, ctx, type);
 	}
 
 }

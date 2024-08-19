@@ -11,6 +11,7 @@ import dev.xkmc.l2magic.content.engine.variable.DoubleVariable;
 import dev.xkmc.l2magic.init.registrate.EngineRegistry;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
@@ -31,14 +32,14 @@ public record ApproxCylinderSelector(
 		return EngineRegistry.CYLINDER.get();
 	}
 
-	public LinkedHashSet<LivingEntity> find(ServerLevel sl, EngineContext ctx, SelectionType type) {
+	public LinkedHashSet<LivingEntity> find(Level level, EngineContext ctx, SelectionType type) {
 		Vec3 pos = ctx.loc().pos();
 		double r = r().eval(ctx);
 		double y = y().eval(ctx);
 		var aabb = new AABB(pos.x - r, pos.y, pos.z - r, pos.x + r, pos.y + y, pos.z + r);
 		LinkedHashSet<LivingEntity> list = new LinkedHashSet<>();
 		var boxes = CollisionHelper.cylinder(pos, r, y);
-		for (var e : type.select(sl, ctx, aabb)) {
+		for (var e : type.select(level, ctx, aabb)) {
 			if (e instanceof LivingEntity le) {
 				var box = le.getBoundingBox();
 				if (CollisionHelper.intersects(box, boxes))

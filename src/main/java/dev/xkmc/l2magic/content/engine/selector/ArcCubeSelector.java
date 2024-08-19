@@ -10,6 +10,7 @@ import dev.xkmc.l2magic.content.engine.variable.IntVariable;
 import dev.xkmc.l2magic.init.registrate.EngineRegistry;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
@@ -39,7 +40,7 @@ public record ArcCubeSelector(
 		return EngineRegistry.ARC.get();
 	}
 
-	public LinkedHashSet<LivingEntity> find(ServerLevel sl, EngineContext ctx, SelectionType type) {
+	public LinkedHashSet<LivingEntity> find(Level level, EngineContext ctx, SelectionType type) {
 		Vec3 pos = ctx.loc().pos();
 		int step = step().eval(ctx);
 		double r = radius().eval(ctx);
@@ -52,7 +53,7 @@ public record ArcCubeSelector(
 			double a = a0 + (a1 - a0) / step * i;
 			Vec3 p = pos.add(ori.rotateDegrees(a).scale(r));
 			var aabb = AABB.ofSize(p, diam, diam, diam);
-			for (var e : type.select(sl, ctx, aabb)) {
+			for (var e : type.select(level, ctx, aabb)) {
 				if (e instanceof LivingEntity le) {
 					list.add(le);
 				}

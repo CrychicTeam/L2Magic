@@ -9,6 +9,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 
 import java.util.function.BiPredicate;
@@ -50,7 +51,7 @@ public enum SelectionType {
 		return check.test(target, user);
 	}
 
-	public Iterable<Entity> select(ServerLevel sl, EngineContext ctx, AABB aabb) {
-		return EntityStorageCache.get(sl).foreach(aabb, x -> check.test(x, ctx.user().user()));
+	public Iterable<Entity> select(Level level, EngineContext ctx, AABB aabb) {
+		return EntityStorageCache.get(level).foreach(aabb, x -> check.test(x, ctx.user().user()));
 	}
 }

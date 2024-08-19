@@ -6,6 +6,7 @@ import dev.xkmc.l2magic.content.engine.selector.SelectionType;
 import dev.xkmc.l2magic.init.registrate.EngineRegistry;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
 
 import java.util.LinkedHashSet;
 
@@ -16,6 +17,6 @@ public interface EntitySelector<T extends Record & EntitySelector<T>> extends Ve
 
 	SelectorType<T> type();
 
-	LinkedHashSet<LivingEntity> find(ServerLevel sl, EngineContext ctx, SelectionType type);
+	LinkedHashSet<LivingEntity> find(Level level, EngineContext ctx, SelectionType type);
 
 }
