@@ -35,7 +35,8 @@ public record IgniteProcessor(
         if (!(ctx.user().level() instanceof ServerLevel)) return;
         Map<Boolean, List<LivingEntity>> partitioned = le.stream()
                 .collect(Collectors.partitioningBy(LivingEntity::isOnFire));
-        action().forEach(p->p.process(partitioned.get(true), ctx));
-        partitioned.get(false).forEach(e-> e.igniteForTicks(burnTicks.eval(ctx)));
+        if (action().size() > 0)
+            action().forEach(p->p.process(partitioned.get(true), ctx));
+        le.forEach(e-> e.igniteForTicks(burnTicks.eval(ctx)));
     }
 }
