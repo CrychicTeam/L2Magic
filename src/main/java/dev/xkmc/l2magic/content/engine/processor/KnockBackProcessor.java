@@ -9,6 +9,7 @@ import dev.xkmc.l2magic.content.engine.core.ProcessorType;
 import dev.xkmc.l2magic.content.engine.helper.Orientation;
 import dev.xkmc.l2magic.content.engine.variable.DoubleVariable;
 import dev.xkmc.l2magic.init.registrate.EngineRegistry;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 
 import java.util.Collection;
@@ -36,6 +37,7 @@ public record KnockBackProcessor(
 
 	@Override
 	public void process(Collection<LivingEntity> le, EngineContext ctx) {
+		if (!(ctx.user().level() instanceof ServerLevel)) return;
 		double kb = (float) knockback.eval(ctx) * 0.5;
 		double angle = angle().eval(ctx);
 		double tilt = tilt().eval(ctx);

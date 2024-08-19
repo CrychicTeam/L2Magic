@@ -8,6 +8,7 @@ import dev.xkmc.l2magic.content.engine.core.EntityProcessor;
 import dev.xkmc.l2magic.content.engine.core.ProcessorType;
 import dev.xkmc.l2magic.content.engine.variable.DoubleVariable;
 import dev.xkmc.l2magic.init.registrate.EngineRegistry;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec3;
 
@@ -32,6 +33,7 @@ public record TeleportProcessor(
 
     @Override
     public void process(Collection<LivingEntity> le, EngineContext ctx) {
+        if (!(ctx.user().level() instanceof ServerLevel)) return;
         double posX = x().eval(ctx);
         double posY = y().eval(ctx);
         double posZ = z().eval(ctx);

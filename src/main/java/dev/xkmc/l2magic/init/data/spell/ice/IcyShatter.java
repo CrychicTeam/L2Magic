@@ -1,6 +1,7 @@
 package dev.xkmc.l2magic.init.data.spell.ice;
 
 import com.tterrag.registrate.providers.RegistrateLangProvider;
+import dev.xkmc.l2complements.init.registrate.LCEffects;
 import dev.xkmc.l2magic.content.engine.context.DataGenContext;
 import dev.xkmc.l2magic.content.engine.core.ConfiguredEngine;
 import dev.xkmc.l2magic.content.engine.iterator.DelayedIterator;
@@ -28,7 +29,6 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.damagesource.DamageTypes;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 
@@ -78,7 +78,7 @@ public class IcyShatter extends SpellDataGenEntry {
 								),
 								List.of(
 										new EffectConditionProcessor(
-												MobEffects.MOVEMENT_SLOWDOWN,//TODO LCEffects.ICE.get(),
+												LCEffects.ICE,
 												List.of(
 														new CastAtProcessor(
 																CastAtProcessor.PosType.BOTTOM,
@@ -115,7 +115,7 @@ public class IcyShatter extends SpellDataGenEntry {
 																DoubleVariable.of("4"), true, true)
 												),
 												List.of(new EffectProcessor(
-														MobEffects.MOVEMENT_SLOWDOWN,//TODO LCEffects.ICE.get(),
+														LCEffects.ICE,
 														IntVariable.of("15"),
 														IntVariable.of("0"),
 														false, false

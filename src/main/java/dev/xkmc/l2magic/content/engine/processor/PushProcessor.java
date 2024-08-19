@@ -10,6 +10,7 @@ import dev.xkmc.l2magic.content.engine.helper.EngineHelper;
 import dev.xkmc.l2magic.content.engine.helper.Orientation;
 import dev.xkmc.l2magic.content.engine.variable.DoubleVariable;
 import dev.xkmc.l2magic.init.registrate.EngineRegistry;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 
@@ -45,6 +46,7 @@ public record PushProcessor(
 
 	@Override
 	public void process(Collection<LivingEntity> le, EngineContext ctx) {
+		if (!(ctx.user().level() instanceof ServerLevel)) return;
 		double kb = speed.eval(ctx);
 		double angle = angle().eval(ctx);
 		double tilt = tilt().eval(ctx);

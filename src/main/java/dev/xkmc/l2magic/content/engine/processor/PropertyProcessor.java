@@ -9,6 +9,7 @@ import dev.xkmc.l2magic.content.engine.core.ProcessorType;
 import dev.xkmc.l2magic.content.engine.helper.EngineHelper;
 import dev.xkmc.l2magic.content.engine.variable.IntVariable;
 import dev.xkmc.l2magic.init.registrate.EngineRegistry;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 
@@ -54,6 +55,7 @@ public record PropertyProcessor(
 
 	@Override
 	public void process(Collection<LivingEntity> le, EngineContext ctx) {
+		if (!(ctx.user().level() instanceof ServerLevel)) return;
 		int dur = duration.eval(ctx);
 		for (var e : le) {
 			property.set(e, dur);

@@ -11,6 +11,7 @@ import dev.xkmc.l2magic.content.engine.variable.IntVariable;
 import dev.xkmc.l2magic.init.registrate.EngineRegistry;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
@@ -41,6 +42,7 @@ public record EffectProcessor(
 
 	@Override
 	public void process(Collection<LivingEntity> le, EngineContext ctx) {
+		if (!(ctx.user().level() instanceof ServerLevel)) return;
 		int dur = duration.eval(ctx);
 		int amp = amplifier.eval(ctx);
 		for (var e : le) {

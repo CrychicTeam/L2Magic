@@ -3,6 +3,7 @@ package dev.xkmc.l2magic.content.engine.processor;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import dev.xkmc.l2core.init.L2LibReg;
 import dev.xkmc.l2magic.content.engine.context.EngineContext;
 import dev.xkmc.l2magic.content.engine.core.EntityProcessor;
 import dev.xkmc.l2magic.content.engine.core.ProcessorType;
@@ -18,27 +19,35 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public record EffectConditionProcessor(
-        Holder<MobEffect> eff,
-        List<EntityProcessor<?>> action,
-        List<EntityProcessor<?>> fallback
+		Holder<MobEffect> eff,
+		List<EntityProcessor<?>> action,
+		List<EntityProcessor<?>> fallback
 ) implements EntityProcessor<EffectConditionProcessor> {
 
-    public static final MapCodec<EffectConditionProcessor> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
-            BuiltInRegistries.MOB_EFFECT.holderByNameCodec().fieldOf("effect").forGetter(e -> e.eff),
-            Codec.list(EntityProcessor.CODEC).fieldOf("action").forGetter(e -> e.action),
-            Codec.list(EntityProcessor.CODEC).fieldOf("fallback").forGetter(e -> e.fallback)
-    ).apply(i, EffectConditionProcessor::new));
+	public static final MapCodec<EffectConditionProcessor> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
+			BuiltInRegistries.MOB_EFFECT.holderByNameCodec().fieldOf("effect").forGetter(e -> e.eff),
+			Codec.list(EntityProcessor.CODEC).fieldOf("action").forGetter(e -> e.action),
+			Codec.list(EntityProcessor.CODEC).fieldOf("fallback").forGetter(e -> e.fallback)
+	).apply(i, EffectConditionProcessor::new));
 
-    @Override
-    public ProcessorType<EffectConditionProcessor> type() {
-        return EngineRegistry.EFFECT_CONDITION.get();
-    }
+	@Override
+	public ProcessorType<EffectConditionProcessor> type() {
+		return EngineRegistry.EFFECT_CONDITION.get();
+	}
 
-    @Override
-    public void process(Collection<LivingEntity> le, EngineContext ctx) {
-        Map<Boolean, List<LivingEntity>> partitioned = le.stream()
-                .collect(Collectors.partitioningBy(i -> i.hasEffect(eff)));
-        action().forEach(p->p.process(partitioned.get(true), ctx));
-        fallback().forEach(p->p.process(partitioned.get(false), ctx));
-    }
+	@Override
+	public void process(Collection<LivingEntity> le, EngineContext ctx) {
+
+		Map<Boolean, List<LivingEntity>> partitioned = le.stream()
+				.collect(Collectors.partitioningBy(this::hasEffect));
+		action().forEach(p -> p.process(partitioned.get(true), ctx));
+		fallback().forEach(p -> p.process(partitioned.get(false), ctx));
+	}
+
+	private boolean hasEffect(LivingEntity e) {
+		if (e.level().isClientSide())
+			return L2LibReg.EFFECT.type().getExisting(e).map(x -> x.map.containsKey(eff)).orElse(false);
+		else return e.hasEffect(eff);
+	}
+
 }
