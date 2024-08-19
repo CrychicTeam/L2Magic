@@ -1,0 +1,104 @@
+{
+  "action": {
+    "type": "l2magic:list",
+    "children": [
+      {
+        "type": "l2magic:random_pos_fan",
+        "child": {
+          "type": "l2magic:dust_particle",
+          "color": "ff7f00",
+          "life": "30",
+          "scale": "1",
+          "speed": "0"
+        },
+        "count": "200",
+        "maxAngle": "360",
+        "maxRadius": "3",
+        "minAngle": "0",
+        "minRadius": "0"
+      },
+      {
+        "type": "l2magic:delay",
+        "child": {
+          "type": "l2magic:list",
+          "children": [
+            {
+              "type": "l2magic:move",
+              "child": {
+                "type": "l2magic:processor",
+                "processors": [
+                  {
+                    "type": "l2magic:damage",
+                    "damage": "10",
+                    "damage_type": "minecraft:lava",
+                    "indirect": true,
+                    "positioned": true
+                  },
+                  {
+                    "type": "l2magic:ignite",
+                    "burnTicks": "200"
+                  }
+                ],
+                "selector": {
+                  "type": "l2magic:line",
+                  "size": "4",
+                  "step": "5"
+                },
+                "target": "ENEMY"
+              },
+              "modifiers": [
+                {
+                  "type": "l2magic:direction",
+                  "x": "0",
+                  "y": "1",
+                  "z": "0"
+                }
+              ]
+            },
+            {
+              "type": "l2magic:random_pos_fan",
+              "child": {
+                "type": "l2magic:random",
+                "child": {
+                  "type": "l2magic:move",
+                  "child": {
+                    "type": "l2magic:dust_particle",
+                    "color": "ff7f00",
+                    "life": "40",
+                    "scale": "1",
+                    "speed": "0.2+r1"
+                  },
+                  "modifiers": [
+                    {
+                      "type": "l2magic:direction",
+                      "x": "0",
+                      "y": "1",
+                      "z": "0"
+                    },
+                    {
+                      "type": "l2magic:rotate",
+                      "degree": "0",
+                      "vertical": "10*r0-5"
+                    }
+                  ]
+                },
+                "count": 2,
+                "name": "r"
+              },
+              "count": "200",
+              "maxAngle": "360",
+              "maxRadius": "3",
+              "minAngle": "0",
+              "minRadius": "0"
+            }
+          ]
+        },
+        "tick": "20"
+      }
+    ]
+  },
+  "cast_type": "INSTANT",
+  "icon": "minecraft:lava_bucket",
+  "order": 3500,
+  "trigger_type": "TARGET_POS"
+}
