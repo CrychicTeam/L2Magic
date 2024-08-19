@@ -96,6 +96,7 @@ public class MagmaShield extends SpellDataGenEntry {
                                                                         DoubleVariable.ZERO
                                                                 ),
                                                                 new IgniteProcessor(
+                                                                        List.of(),
                                                                         IntVariable.of("40")
                                                                 )
                                                         )

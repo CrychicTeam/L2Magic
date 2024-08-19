@@ -38,7 +38,9 @@ public record EffectConditionProcessor(
     public void process(Collection<LivingEntity> le, EngineContext ctx) {
         Map<Boolean, List<LivingEntity>> partitioned = le.stream()
                 .collect(Collectors.partitioningBy(i -> i.hasEffect(eff)));
-        action().forEach(p->p.process(partitioned.get(true), ctx));
-        fallback().forEach(p->p.process(partitioned.get(false), ctx));
+        if (action().size() > 0)
+            action().forEach(p->p.process(partitioned.get(true), ctx));
+        if (fallback().size() > 0)
+            fallback().forEach(p->p.process(partitioned.get(false), ctx));
     }
 }

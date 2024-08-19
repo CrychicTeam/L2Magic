@@ -3,8 +3,6 @@ package dev.xkmc.l2magic.init.data.spell.fire;
 import com.tterrag.registrate.providers.RegistrateLangProvider;
 import dev.xkmc.l2magic.content.engine.context.DataGenContext;
 import dev.xkmc.l2magic.content.engine.core.ConfiguredEngine;
-import dev.xkmc.l2magic.content.engine.iterator.LoopIterator;
-import dev.xkmc.l2magic.content.engine.iterator.RingIterator;
 import dev.xkmc.l2magic.content.engine.iterator.RingRandomIterator;
 import dev.xkmc.l2magic.content.engine.logic.*;
 import dev.xkmc.l2magic.content.engine.modifier.RotationModifier;
