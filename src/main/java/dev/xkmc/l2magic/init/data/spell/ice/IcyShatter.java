@@ -10,6 +10,7 @@ import dev.xkmc.l2magic.content.engine.iterator.LoopIterator;
 import dev.xkmc.l2magic.content.engine.logic.ListLogic;
 import dev.xkmc.l2magic.content.engine.logic.MoveEngine;
 import dev.xkmc.l2magic.content.engine.logic.ProcessorEngine;
+import dev.xkmc.l2magic.content.engine.modifier.ForwardOffsetModifier;
 import dev.xkmc.l2magic.content.engine.modifier.RandomOffsetModifier;
 import dev.xkmc.l2magic.content.engine.modifier.SetDirectionModifier;
 import dev.xkmc.l2magic.content.engine.modifier.SetPosModifier;
@@ -33,6 +34,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.damagesource.DamageTypes;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 
@@ -69,42 +71,38 @@ public class IcyShatter extends SpellDataGenEntry {
 						DoubleVariable.of("PosY+1"),
 						DoubleVariable.of("PosZ")
 				)),
-				new LoopIterator(  // Render
-						IntVariable.of("500"),
-						new MoveEngine(
-								List.of(
-										new RandomOffsetModifier(
-												RandomOffsetModifier.Type.RECT,
-												DoubleVariable.of("8"),
-												DoubleVariable.of("4"),
-												DoubleVariable.of("8")
+				new DelayedIterator(
+						IntVariable.of("15"),
+						IntVariable.of("20"),
+						new LoopIterator(  // Render
+								IntVariable.of("500"),
+								new MoveEngine(
+										List.of(
+												new RandomOffsetModifier(
+														RandomOffsetModifier.Type.RECT,
+														DoubleVariable.of("8"),
+														DoubleVariable.of("4"),
+														DoubleVariable.of("8")
+												),
+												new SetDirectionModifier(
+														DoubleVariable.ZERO,
+														DoubleVariable.of("-1"),
+														DoubleVariable.ZERO
+												),
+												new ForwardOffsetModifier(
+														DoubleVariable.of("-2")
+												)
 										),
-										new SetDirectionModifier(
-												DoubleVariable.ZERO,
-												DoubleVariable.of("-1"),
-												DoubleVariable.ZERO
+										new DustParticleInstance(
+												ColorVariable.Static.of(0x00FFFF),
+												DoubleVariable.of("1"),
+												DoubleVariable.of("0.02"),
+												IntVariable.of("40")
 										)
 								),
-								new DustParticleInstance(
-										ColorVariable.Static.of(0x00FFFF),
-										DoubleVariable.of("1"),
-										DoubleVariable.of("0.02"),
-										IntVariable.of("200")
-								)
+								null
 						),
 						null
-				).move(
-						new RandomOffsetModifier(
-								RandomOffsetModifier.Type.RECT,
-								DoubleVariable.of("8"),
-								DoubleVariable.of("4"),
-								DoubleVariable.of("8")
-						),
-						new SetDirectionModifier(
-								DoubleVariable.ZERO,
-								DoubleVariable.of("-1"),
-								DoubleVariable.ZERO
-						)
 				),
 				new DelayedIterator(
 						IntVariable.of("15"),
@@ -118,7 +116,7 @@ public class IcyShatter extends SpellDataGenEntry {
 								),
 								List.of(
 										new FilteredProcessor(
-												new MobEffectFilter(LCEffects.ICE),
+												new MobEffectFilter(MobEffects.MOVEMENT_SLOWDOWN),
 												List.of(
 														new CastAtProcessor(
 																CastAtProcessor.PosType.BOTTOM,
@@ -130,21 +128,14 @@ public class IcyShatter extends SpellDataGenEntry {
 																						ParticleTypes.SNOWFLAKE,
 																						DoubleVariable.of("0.1")
 																				).move(
-																						new SetPosModifier(
-																								DoubleVariable.of("PosX"),
-																								DoubleVariable.of("PosY+0.5"),
-																								DoubleVariable.of("PosZ")
+																						new ForwardOffsetModifier(
+																								DoubleVariable.of("1")
 																						),
 																						new RandomOffsetModifier(
 																								RandomOffsetModifier.Type.RECT,
 																								DoubleVariable.of("1"),
 																								DoubleVariable.of("1"),
 																								DoubleVariable.of("1")
-																						),
-																						new SetDirectionModifier(
-																								DoubleVariable.ZERO,
-																								DoubleVariable.of("-1"),
-																								DoubleVariable.ZERO
 																						)
 																				),
 																				null
@@ -152,10 +143,16 @@ public class IcyShatter extends SpellDataGenEntry {
 																))
 														),
 														new DamageProcessor(ctx.damage(DamageTypes.FREEZE),
-																DoubleVariable.of("4"), true, true)
+																DoubleVariable.of("4"), true, true),
+														new EffectProcessor(
+																LCEffects.ICE,
+																IntVariable.of("40"),
+																IntVariable.of("0"),
+																false, false
+														)
 												),
 												List.of(new EffectProcessor(
-														LCEffects.ICE,
+														MobEffects.MOVEMENT_SLOWDOWN,
 														IntVariable.of("15"),
 														IntVariable.of("0"),
 														false, false

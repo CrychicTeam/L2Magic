@@ -26,6 +26,7 @@ import dev.xkmc.l2magic.content.engine.variable.ColorVariable;
 import dev.xkmc.l2magic.content.engine.variable.DoubleVariable;
 import dev.xkmc.l2magic.content.engine.variable.IntVariable;
 import dev.xkmc.l2magic.init.data.SpellDataGenEntry;
+import dev.xkmc.l2magic.init.data.spell.UnrealHelper;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -54,46 +55,26 @@ public class AbsoluteZero extends SpellDataGenEntry {
 
 	private static ConfiguredEngine<?> absoluteZero(DataGenContext ctx) {
 		return new ListLogic(List.of(
-				new ListLogic(List.of(
-						new BlockParticleInstance(  // Render
-								Blocks.BLUE_ICE,
+				new BlockParticleInstance(  // Render
+						Blocks.BLUE_ICE,
+						DoubleVariable.ZERO,
+						DoubleVariable.of("4"),
+						IntVariable.of("20"),
+						false
+				),
+				UnrealHelper.cuboidSurface(
+						4, 4, 4, 0.2,
+						new DustParticleInstance(
+								ColorVariable.Static.of(0x00FFFF),
+								DoubleVariable.of("1"),
 								DoubleVariable.ZERO,
-								DoubleVariable.of("4"),
-								IntVariable.of("20"),
-								false
-						),
-						new LoopIterator(  // Render
-								IntVariable.of("500"),
-								new DustParticleInstance(
-										ColorVariable.Static.of(0x00FFFF),
-										DoubleVariable.of("1"),
-										DoubleVariable.ZERO,
-										IntVariable.of("40")
-								).move(
-										new RandomOffsetModifier(
-												RandomOffsetModifier.Type.RECT,
-												DoubleVariable.of("8"),
-												DoubleVariable.of("4"),
-												DoubleVariable.of("8")
-										),
-										new SetDirectionModifier(
-												DoubleVariable.ZERO,
-												DoubleVariable.of("-1"),
-												DoubleVariable.ZERO
-										)
-								), null
-						)
-				)).move(
-						new SetPosModifier(
-								DoubleVariable.of("PosX"),
-								DoubleVariable.of("PosY+1"),
-								DoubleVariable.of("PosZ")
+								IntVariable.of("40")
 						)
 				),
 				new ProcessorEngine(  // Damage
 						SelectionType.ENEMY,
 						new BoxSelector(
-								DoubleVariable.of("8"),
+								DoubleVariable.of("4"),
 								DoubleVariable.of("4"),
 								false
 						),
