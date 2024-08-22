@@ -29,7 +29,8 @@ public class SpellDataGenRegistry {
 			new FrostNova(),  // id:3600
 			new IcyShatter(),  // id:3700
 			new AbsoluteZero(),  // id:3800
-			new Starfall()  // id:3900
+			new Starfall(),  // id:3900
+			new BlazingHammer()  // id:4000
 	);
 
 }
