@@ -18,6 +18,7 @@ import dev.xkmc.l2magic.content.engine.processor.IgniteProcessor;
 import dev.xkmc.l2magic.content.engine.processor.KnockBackProcessor;
 import dev.xkmc.l2magic.content.engine.selector.ApproxCylinderSelector;
 import dev.xkmc.l2magic.content.engine.selector.SelectionType;
+import dev.xkmc.l2magic.content.engine.sound.SoundInstance;
 import dev.xkmc.l2magic.content.engine.spell.SpellAction;
 import dev.xkmc.l2magic.content.engine.spell.SpellCastType;
 import dev.xkmc.l2magic.content.engine.spell.SpellTriggerType;
@@ -28,6 +29,7 @@ import dev.xkmc.l2magic.init.data.SpellDataGenEntry;
 import dev.xkmc.l2magic.init.data.spell.UnrealHelper;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.item.Items;
 
@@ -184,6 +186,11 @@ public class Starfall extends SpellDataGenEntry {
                                                         DoubleVariable.ZERO
                                                 )
                                         )
+                                ),
+                                new SoundInstance(
+                                        SoundEvents.GENERIC_EXPLODE.value(),
+                                        DoubleVariable.of("5"),
+                                        DoubleVariable.ZERO
                                 )
                         ))
                 )

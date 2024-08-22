@@ -15,6 +15,7 @@ import dev.xkmc.l2magic.content.engine.processor.KnockBackProcessor;
 import dev.xkmc.l2magic.content.engine.selector.ApproxCylinderSelector;
 import dev.xkmc.l2magic.content.engine.selector.LinearCubeSelector;
 import dev.xkmc.l2magic.content.engine.selector.SelectionType;
+import dev.xkmc.l2magic.content.engine.sound.SoundInstance;
 import dev.xkmc.l2magic.content.engine.spell.SpellAction;
 import dev.xkmc.l2magic.content.engine.spell.SpellCastType;
 import dev.xkmc.l2magic.content.engine.spell.SpellTriggerType;
@@ -29,6 +30,7 @@ import dev.xkmc.l2magic.init.data.spell.UnrealHelper;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.item.Items;
 
@@ -205,6 +207,11 @@ public class BlazingHammer extends SpellDataGenEntry {
                                                         DoubleVariable.ZERO
                                                 )
                                         )
+                                ),
+                                new SoundInstance(
+                                        SoundEvents.ANVIL_LAND,
+                                        DoubleVariable.of("5"),
+                                        DoubleVariable.ZERO
                                 )
                         ))
                 )
