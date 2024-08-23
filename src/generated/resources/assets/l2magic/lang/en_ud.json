@@ -27,5 +27,15 @@
   "spell_action.l2magic.melt": "ʇןǝW",
   "spell_action.l2magic.swept": "ʇǝdʍS",
   "spell_action.l2magic.tornado": "opɐuɹo⟘",
-  "spell_action.l2magic.winter_storm": "ɯɹoʇS ɹǝʇuıM"
+  "spell_action.l2magic.winter_storm": "ɯɹoʇS ɹǝʇuıM",
+  "spell_cast_type.charge": "buıʇsɐƆ ǝbɹɐɥƆ",
+  "spell_cast_type.continuous": "buıʇsɐƆ snonuıʇuoƆ",
+  "spell_cast_type.instant": "buıʇsɐƆ ʇuɐʇsuI",
+  "spell_trigger_type.axis_aligned_facing": "suoıʇɔǝɹıp sıxɐ pɹɐʍoʇ ʇsɐƆ",
+  "spell_trigger_type.facing_back": "pɹɐʍɹoɟ ʇsɐƆ",
+  "spell_trigger_type.facing_front": "pɹɐʍɹoɟ ʇsɐƆ",
+  "spell_trigger_type.horizontal_facing": "suoıʇɔǝɹıp ןɐʇuozıɹoɥ pɹɐʍoʇ ʇsɐƆ",
+  "spell_trigger_type.self_pos": "uoıʇısod ɹǝsn ʇɐ ʇsɐƆ",
+  "spell_trigger_type.target_entity": "ʎʇıʇuǝ ʇǝbɹɐʇ ʇɐ ʇsɐƆ",
+  "spell_trigger_type.target_pos": "uoıʇısod ʇǝbɹɐʇ ʇɐ ʇsɐƆ"
 }

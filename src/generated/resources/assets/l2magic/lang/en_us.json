@@ -27,5 +27,15 @@
   "spell_action.l2magic.melt": "Melt",
   "spell_action.l2magic.swept": "Swpet",
   "spell_action.l2magic.tornado": "Tornado",
-  "spell_action.l2magic.winter_storm": "Winter Storm"
+  "spell_action.l2magic.winter_storm": "Winter Storm",
+  "spell_cast_type.charge": "Charge Casting",
+  "spell_cast_type.continuous": "Continuous Casting",
+  "spell_cast_type.instant": "Instant Casting",
+  "spell_trigger_type.axis_aligned_facing": "Cast toward axis directions",
+  "spell_trigger_type.facing_back": "Cast forward",
+  "spell_trigger_type.facing_front": "Cast forward",
+  "spell_trigger_type.horizontal_facing": "Cast toward horizontal directions",
+  "spell_trigger_type.self_pos": "Cast at user position",
+  "spell_trigger_type.target_entity": "Cast at target entity",
+  "spell_trigger_type.target_pos": "Cast at target position"
 }

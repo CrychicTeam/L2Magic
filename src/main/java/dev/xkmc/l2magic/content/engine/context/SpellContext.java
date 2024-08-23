@@ -4,6 +4,8 @@ import dev.xkmc.l2library.content.raytrace.RayTraceUtil;
 import dev.xkmc.l2magic.content.engine.helper.Orientation;
 import dev.xkmc.l2magic.content.engine.spell.SpellAction;
 import io.netty.util.internal.ThreadLocalRandom;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
@@ -74,6 +76,12 @@ public record SpellContext(LivingEntity user, Vec3 origin, Orientation facing, l
 				pos = ehit != null && ehit.getLocation().distanceToSqr(start) < bhit.getLocation().distanceToSqr(start) ?
 						ehit.getLocation() : bhit.getLocation();
 				ori = Orientation.regular();
+			}
+			case AXIS_ALIGNED_FACING -> {
+				var facing = SpellContext.getForward(user);
+				Vec3 dir = new Vec3(Direction.getNearest(facing).step());
+				pos = BlockPos.containing(user.getEyePosition()).getCenter();
+				ori = Orientation.fromForward(dir);
 			}
 			case HORIZONTAL_FACING -> {
 				var dir = SpellContext.getForward(user).multiply(1, 0, 1).normalize();

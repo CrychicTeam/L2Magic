@@ -1,9 +1,13 @@
 package dev.xkmc.l2magic.init.data;
 
 import com.tterrag.registrate.providers.RegistrateLangProvider;
+import dev.xkmc.l2magic.content.engine.spell.SpellCastType;
+import dev.xkmc.l2magic.content.engine.spell.SpellTriggerType;
 import dev.xkmc.l2magic.init.L2Magic;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+
+import java.util.Locale;
 
 public enum LMLangData {
 	CMD_INVALID_SPELL("command.invalid_spell", "Invalid spell ID %s", 1),
@@ -21,6 +25,14 @@ public enum LMLangData {
 		this.count = count;
 	}
 
+	public static MutableComponent lang(SpellCastType type) {
+		return Component.translatable("spell_cast_type." + type.name().toLowerCase(Locale.ROOT));
+	}
+
+	public static MutableComponent lang(SpellTriggerType type) {
+		return Component.translatable("spell_trigger_type." + type.name().toLowerCase(Locale.ROOT));
+	}
+
 	public MutableComponent get(Object... objs) {
 		if (objs.length != count)
 			throw new IllegalArgumentException("for " + name() + ": expect " + count + " parameters, got " + objs.length);
@@ -30,6 +42,10 @@ public enum LMLangData {
 
 	public static void genLang(RegistrateLangProvider pvd) {
 		for (var e : SpellDataGenRegistry.LIST) e.genLang(pvd);
+		for (var e : SpellCastType.values())
+			pvd.add("spell_cast_type." + e.name().toLowerCase(Locale.ROOT), e.defDesc());
+		for (var e : SpellTriggerType.values())
+			pvd.add("spell_trigger_type." + e.name().toLowerCase(Locale.ROOT), e.defDesc());
 	}
 
 	public static MutableComponent translate(String key, Object... objs) {
