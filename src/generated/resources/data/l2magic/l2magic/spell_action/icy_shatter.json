@@ -22,7 +22,7 @@
         ]
       },
       {
-        "type": "l2magic:move",
+        "type": "l2magic:iterate_delayed",
         "child": {
           "type": "l2magic:iterate",
           "child": {
@@ -30,7 +30,7 @@
             "child": {
               "type": "l2magic:dust_particle",
               "color": "ffff",
-              "life": "200",
+              "life": "40",
               "scale": "1",
               "speed": "0.02"
             },
@@ -47,26 +47,17 @@
                 "x": "0",
                 "y": "-1",
                 "z": "0"
+              },
+              {
+                "type": "l2magic:forward",
+                "distance": "-2"
               }
             ]
           },
           "step": "500"
         },
-        "modifiers": [
-          {
-            "type": "l2magic:random_offset",
-            "shape": "RECT",
-            "x": "8",
-            "y": "4",
-            "z": "8"
-          },
-          {
-            "type": "l2magic:direction",
-            "x": "0",
-            "y": "-1",
-            "z": "0"
-          }
-        ]
+        "delay": "20",
+        "step": "15"
       },
       {
         "type": "l2magic:iterate_delayed",
@@ -92,10 +83,8 @@
                           },
                           "modifiers": [
                             {
-                              "type": "l2magic:set_position",
-                              "x": "PosX",
-                              "y": "PosY+0.5",
-                              "z": "PosZ"
+                              "type": "l2magic:forward",
+                              "distance": "1"
                             },
                             {
                               "type": "l2magic:random_offset",
@@ -103,12 +92,6 @@
                               "x": "1",
                               "y": "1",
                               "z": "1"
-                            },
-                            {
-                              "type": "l2magic:direction",
-                              "x": "0",
-                              "y": "-1",
-                              "z": "0"
                             }
                           ]
                         },
@@ -125,6 +108,14 @@
                   "damage_type": "minecraft:freeze",
                   "indirect": true,
                   "positioned": true
+                },
+                {
+                  "type": "l2magic:effect",
+                  "ambient": false,
+                  "amplifier": "0",
+                  "duration": "40",
+                  "effect": "l2complements:frozen",
+                  "visible": false
                 }
               ],
               "fallback": [
@@ -133,13 +124,13 @@
                   "ambient": false,
                   "amplifier": "0",
                   "duration": "15",
-                  "effect": "l2complements:frozen",
+                  "effect": "minecraft:slowness",
                   "visible": false
                 }
               ],
               "filter": {
                 "type": "l2magic:effect",
-                "effect": "l2complements:frozen"
+                "effect": "minecraft:slowness"
               }
             }
           ],

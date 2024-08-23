@@ -20,8 +20,10 @@
               "child": {
                 "type": "l2magic:random",
                 "child": {
-                  "type": "l2magic:particle",
-                  "particle": "minecraft:snowflake",
+                  "type": "l2magic:dust_particle",
+                  "color": "ffff",
+                  "life": "40",
+                  "scale": "1",
                   "speed": "0.5+0.5*v0"
                 },
                 "count": 1,

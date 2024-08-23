@@ -3,21 +3,22 @@
     "type": "l2magic:list",
     "children": [
       {
-        "type": "l2magic:move",
+        "type": "l2magic:block_particle",
+        "block": "minecraft:blue_ice",
+        "breaking": false,
+        "life": "20",
+        "scale": "4",
+        "speed": "0"
+      },
+      {
+        "type": "l2magic:iterate",
         "child": {
-          "type": "l2magic:list",
-          "children": [
-            {
-              "type": "l2magic:block_particle",
-              "block": "minecraft:blue_ice",
-              "breaking": false,
-              "life": "20",
-              "scale": "4",
-              "speed": "0"
-            },
-            {
-              "type": "l2magic:iterate",
-              "child": {
+          "type": "l2magic:iterate",
+          "child": {
+            "type": "l2magic:iterate",
+            "child": {
+              "type": "l2magic:if",
+              "action": {
                 "type": "l2magic:move",
                 "child": {
                   "type": "l2magic:dust_particle",
@@ -28,32 +29,31 @@
                 },
                 "modifiers": [
                   {
-                    "type": "l2magic:random_offset",
-                    "shape": "RECT",
-                    "x": "8",
-                    "y": "4",
-                    "z": "8"
-                  },
-                  {
-                    "type": "l2magic:direction",
-                    "x": "0",
-                    "y": "-1",
-                    "z": "0"
+                    "type": "l2magic:set_position",
+                    "x": "PosX+xInd*0.2-2.0",
+                    "y": "PosY+yInd*0.2-2.0",
+                    "z": "PosZ+zInd*0.2-2.0"
                   }
                 ]
               },
-              "step": "500"
-            }
-          ]
+              "predicate": {
+                "type": "l2magic:or",
+                "list": [
+                  "xInd*yInd*zInd==0",
+                  "xInd==20",
+                  "yInd==20",
+                  "zInd==20"
+                ]
+              }
+            },
+            "index": "zInd",
+            "step": "21"
+          },
+          "index": "yInd",
+          "step": "21"
         },
-        "modifiers": [
-          {
-            "type": "l2magic:set_position",
-            "x": "PosX",
-            "y": "PosY+1",
-            "z": "PosZ"
-          }
-        ]
+        "index": "xInd",
+        "step": "21"
       },
       {
         "type": "l2magic:processor",
@@ -100,7 +100,7 @@
         "selector": {
           "type": "l2magic:box",
           "center": false,
-          "size": "8",
+          "size": "4",
           "y": "4"
         },
         "target": "ENEMY"

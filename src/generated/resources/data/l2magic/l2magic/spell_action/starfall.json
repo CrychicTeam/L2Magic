@@ -1,0 +1,183 @@
+{
+  "action": {
+    "type": "l2magic:list",
+    "children": [
+      {
+        "type": "l2magic:random_pos_fan",
+        "child": {
+          "type": "l2magic:dust_particle",
+          "color": "0",
+          "life": "55",
+          "scale": "1",
+          "speed": "0"
+        },
+        "count": "100",
+        "maxAngle": "360",
+        "maxRadius": "1.5",
+        "minAngle": "0",
+        "minRadius": "0"
+      },
+      {
+        "type": "l2magic:move",
+        "child": {
+          "type": "l2magic:list",
+          "children": [
+            {
+              "type": "l2magic:random_pos_sphere",
+              "child": {
+                "type": "l2magic:move",
+                "child": {
+                  "type": "l2magic:dust_particle",
+                  "color": "0",
+                  "life": "50",
+                  "scale": "1",
+                  "speed": "0.1"
+                },
+                "modifiers": [
+                  {
+                    "type": "l2magic:random_offset",
+                    "shape": "RECT",
+                    "x": "0.2",
+                    "y": "0.2",
+                    "z": "0.2"
+                  },
+                  {
+                    "type": "l2magic:direction",
+                    "x": "0",
+                    "y": "-1",
+                    "z": "0"
+                  }
+                ]
+              },
+              "count": "1000",
+              "radius": "1"
+            },
+            {
+              "type": "l2magic:iterate_delayed",
+              "child": {
+                "type": "l2magic:random_pos_sphere",
+                "child": {
+                  "type": "l2magic:move",
+                  "child": {
+                    "type": "l2magic:dust_particle",
+                    "color": "ff0000",
+                    "life": "5",
+                    "scale": "0.5",
+                    "speed": "-0.2"
+                  },
+                  "modifiers": [
+                    {
+                      "type": "l2magic:direction",
+                      "x": "0",
+                      "y": "-1",
+                      "z": "0"
+                    },
+                    {
+                      "type": "l2magic:forward",
+                      "distance": "t*0.1"
+                    }
+                  ]
+                },
+                "count": "50",
+                "radius": "1.5"
+              },
+              "delay": "1",
+              "index": "t",
+              "step": "40"
+            }
+          ]
+        },
+        "modifiers": [
+          {
+            "type": "l2magic:direction",
+            "x": "0",
+            "y": "-1",
+            "z": "0"
+          },
+          {
+            "type": "l2magic:forward",
+            "distance": "-4"
+          }
+        ]
+      },
+      {
+        "type": "l2magic:delay",
+        "child": {
+          "type": "l2magic:list",
+          "children": [
+            {
+              "type": "l2magic:random_pos_fan",
+              "child": {
+                "type": "l2magic:random",
+                "child": {
+                  "type": "l2magic:move",
+                  "child": {
+                    "type": "l2magic:dust_particle",
+                    "color": "ff0000",
+                    "life": "40",
+                    "scale": "1",
+                    "speed": "0.2+r1"
+                  },
+                  "modifiers": [
+                    {
+                      "type": "l2magic:rotate",
+                      "degree": "0",
+                      "vertical": "45*r0"
+                    }
+                  ]
+                },
+                "count": 2,
+                "name": "r"
+              },
+              "count": "200",
+              "maxAngle": "360",
+              "maxRadius": "2",
+              "minAngle": "0",
+              "minRadius": "0"
+            },
+            {
+              "type": "l2magic:processor",
+              "processors": [
+                {
+                  "type": "l2magic:damage",
+                  "damage": "20",
+                  "damage_type": "minecraft:in_fire",
+                  "indirect": true,
+                  "positioned": true
+                },
+                {
+                  "type": "l2magic:ignite",
+                  "action": [],
+                  "burnTicks": "200"
+                },
+                {
+                  "type": "l2magic:knockback",
+                  "angle": "45",
+                  "knockback": "2",
+                  "tilt": "0"
+                }
+              ],
+              "selector": {
+                "type": "l2magic:cylinder",
+                "r": "8",
+                "y": "4"
+              },
+              "target": "ENEMY"
+            },
+            {
+              "type": "l2magic:sound",
+              "pitch": "0",
+              "sound": "minecraft:entity.generic.explode",
+              "volume": "5"
+            }
+          ]
+        },
+        "tick": "45"
+      }
+    ]
+  },
+  "cast_type": "INSTANT",
+  "icon": "minecraft:basalt",
+  "order": 3900,
+  "trigger_type": "TARGET_POS"
+}
