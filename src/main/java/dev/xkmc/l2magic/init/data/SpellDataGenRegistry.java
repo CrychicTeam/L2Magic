@@ -30,7 +30,8 @@ public class SpellDataGenRegistry {
 			new IcyShatter(),  // id:3700
 			new AbsoluteZero(),  // id:3800
 			new Starfall(),  // id:3900
-			new BlazingHammer()  // id:4000
+			new BlazingHammer(),  // id:4000
+			new GlacialDomain()   // id:4100
 	);
 
 }
