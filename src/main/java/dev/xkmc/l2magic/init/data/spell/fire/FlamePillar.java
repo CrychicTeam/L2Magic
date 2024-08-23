@@ -10,6 +10,7 @@ import dev.xkmc.l2magic.content.engine.modifier.SetDirectionModifier;
 import dev.xkmc.l2magic.content.engine.particle.DustParticleInstance;
 import dev.xkmc.l2magic.content.engine.processor.DamageProcessor;
 import dev.xkmc.l2magic.content.engine.processor.IgniteProcessor;
+import dev.xkmc.l2magic.content.engine.selector.ApproxCylinderSelector;
 import dev.xkmc.l2magic.content.engine.selector.LinearCubeSelector;
 import dev.xkmc.l2magic.content.engine.selector.SelectionType;
 import dev.xkmc.l2magic.content.engine.spell.SpellAction;
@@ -74,8 +75,8 @@ public class FlamePillar extends SpellDataGenEntry {
                                         ),
                                         new ProcessorEngine(
                                                 SelectionType.ENEMY,
-                                                new LinearCubeSelector(
-                                                        IntVariable.of("5"),
+                                                new ApproxCylinderSelector(
+                                                        DoubleVariable.of("5"),
                                                         DoubleVariable.of("4")
                                                 ),
                                                 List.of(

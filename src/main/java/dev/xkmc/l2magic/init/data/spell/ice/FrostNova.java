@@ -10,6 +10,7 @@ import dev.xkmc.l2magic.content.engine.logic.ProcessorEngine;
 import dev.xkmc.l2magic.content.engine.logic.RandomVariableLogic;
 import dev.xkmc.l2magic.content.engine.modifier.SetPosModifier;
 import dev.xkmc.l2magic.content.engine.particle.BlockParticleInstance;
+import dev.xkmc.l2magic.content.engine.particle.DustParticleInstance;
 import dev.xkmc.l2magic.content.engine.particle.SimpleParticleInstance;
 import dev.xkmc.l2magic.content.engine.processor.DamageProcessor;
 import dev.xkmc.l2magic.content.engine.processor.EffectProcessor;
@@ -19,6 +20,7 @@ import dev.xkmc.l2magic.content.engine.selector.SelectionType;
 import dev.xkmc.l2magic.content.engine.spell.SpellAction;
 import dev.xkmc.l2magic.content.engine.spell.SpellCastType;
 import dev.xkmc.l2magic.content.engine.spell.SpellTriggerType;
+import dev.xkmc.l2magic.content.engine.variable.ColorVariable;
 import dev.xkmc.l2magic.content.engine.variable.DoubleVariable;
 import dev.xkmc.l2magic.content.engine.variable.IntVariable;
 import dev.xkmc.l2magic.init.data.SpellDataGenEntry;
@@ -77,9 +79,11 @@ public class FrostNova extends SpellDataGenEntry {
                                         new RandomVariableLogic(
                                                 "v",
                                                 1,
-                                                new SimpleParticleInstance(
-                                                        ParticleTypes.SNOWFLAKE,
-                                                        DoubleVariable.of("0.5+0.5*v0")
+                                                new DustParticleInstance(
+                                                        ColorVariable.Static.of(0x00FFFF),
+                                                        DoubleVariable.of("1"),
+                                                        DoubleVariable.of("0.5+0.5*v0"),
+                                                        IntVariable.of("40")
                                                 )
                                         ),
                                         null
@@ -101,7 +105,7 @@ public class FrostNova extends SpellDataGenEntry {
                                         DoubleVariable.ZERO
                                 ),
                                 new EffectProcessor(
-                                        MobEffects.MOVEMENT_SLOWDOWN,//TODO LCEffects.ICE.get(),
+                                        MobEffects.MOVEMENT_SLOWDOWN,
                                         IntVariable.of("100"),
                                         IntVariable.of("0"),
                                         false, false

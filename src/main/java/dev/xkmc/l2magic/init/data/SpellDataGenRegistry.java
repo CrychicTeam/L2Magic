@@ -4,10 +4,7 @@ import dev.xkmc.l2magic.init.data.spell.ArrowSpells;
 import dev.xkmc.l2magic.init.data.spell.BlockSpells;
 import dev.xkmc.l2magic.init.data.spell.EchoSpells;
 import dev.xkmc.l2magic.init.data.spell.MasterSpark;
-import dev.xkmc.l2magic.init.data.spell.fire.FlameCharge;
-import dev.xkmc.l2magic.init.data.spell.fire.FlamePillar;
-import dev.xkmc.l2magic.init.data.spell.fire.FlameSpells;
-import dev.xkmc.l2magic.init.data.spell.fire.MagmaShield;
+import dev.xkmc.l2magic.init.data.spell.fire.*;
 import dev.xkmc.l2magic.init.data.spell.ground.EarthSpike;
 import dev.xkmc.l2magic.init.data.spell.ground.MagnetCore;
 import dev.xkmc.l2magic.init.data.spell.ice.*;
@@ -31,7 +28,10 @@ public class SpellDataGenRegistry {
 			new FlamePillar(), 	// id:3500
 			new FrostNova(),  // id:3600
 			new IcyShatter(),  // id:3700
-			new AbsoluteZero()  // id:3800
+			new AbsoluteZero(),  // id:3800
+			new Starfall(),  // id:3900
+			new BlazingHammer(),  // id:4000
+			new GlacialDomain()   // id:4100
 	);
 
 }
