@@ -6,6 +6,8 @@ import dev.xkmc.shadow.objecthunter.exp4j.Expression;
 import dev.xkmc.shadow.objecthunter.exp4j.ExpressionBuilder;
 import net.minecraft.util.RandomSource;
 
+import java.util.OptionalDouble;
+
 public class ExpressionHolder {
 
 	public static ExpressionHolder of(String str) {
@@ -30,6 +32,9 @@ public class ExpressionHolder {
 		this.str = str;
 	}
 
+	public OptionalDouble getAsConstant() {
+		return isConstant ? OptionalDouble.of(constant) : OptionalDouble.empty();
+	}
 
 	public double eval(EngineContext ctx) {
 		if (isConstant) {

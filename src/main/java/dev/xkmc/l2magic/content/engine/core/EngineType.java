@@ -1,9 +1,18 @@
 package dev.xkmc.l2magic.content.engine.core;
 
 import com.mojang.serialization.MapCodec;
+import dev.xkmc.l2magic.content.engine.extension.CodecHolder;
 
-public interface EngineType<T extends Record & ConfiguredEngine<T>> {
+public class EngineType<T extends Record & ConfiguredEngine<T>> extends CodecHolder<T> {
 
-	MapCodec<T> codec();
+	public EngineType(MapCodec<T> codec) {
+		super(codec);
+	}
+
+	public interface Factory<T extends Record & ConfiguredEngine<T>> {
+
+		MapCodec<T> codec();
+
+	}
 
 }

@@ -4,7 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.xkmc.l2damagetracker.contents.attack.AttackEventHandler;
-import dev.xkmc.l2damagetracker.contents.attack.CreateSourceEvent;
+import dev.xkmc.l2damagetracker.init.L2DamageTracker;
 import dev.xkmc.l2magic.content.engine.context.EngineContext;
 import dev.xkmc.l2magic.content.engine.core.ProcessorType;
 import dev.xkmc.l2magic.content.engine.variable.DoubleVariable;
@@ -13,6 +13,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.RegistryFileCodec;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.LivingEntity;
@@ -46,14 +47,13 @@ public record DamageProcessor(
 	public void process(Collection<LivingEntity> le, EngineContext ctx) {
 		if (!(ctx.user().level() instanceof ServerLevel sl)) return;
 		var user = ctx.user().user();
-		DamageSource source = new DamageSource(damageType,
-				indirect ? null : user, user,
-				positioned ? ctx.loc().pos() : null);
-		DamageSource alt = AttackEventHandler.onDamageSourceCreate(
-				new CreateSourceEvent(sl.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE),
-						damageType.unwrapKey().get(), user, source.getDirectEntity()));
-		if (alt != null) source = alt;
+		DamageSource source = AttackEventHandler.createSource(sl, user, damageType.unwrapKey().orElseThrow(),
+				indirect ? null : user, positioned ? ctx.loc().pos() : null);
 		float dmg = (float) damage.eval(ctx);
+		if (source.is(DamageTypeTags.IS_PROJECTILE)) {
+			var ins = user.getAttribute(L2DamageTracker.BOW_STRENGTH);
+			if (ins != null) dmg *= (float) ins.getValue();
+		}
 		for (var e : le) {
 			e.hurt(source, dmg);
 		}

@@ -1,5 +1,6 @@
 package dev.xkmc.l2magic.content.engine.core;
 
+import dev.xkmc.l2magic.content.engine.context.AnalyticContext;
 import dev.xkmc.l2magic.content.engine.context.BuilderContext;
 import dev.xkmc.l2magic.content.engine.helper.EngineHelper;
 import dev.xkmc.l2serial.util.Wrappers;
@@ -16,6 +17,12 @@ public interface Verifiable {
 
 	default boolean verify(BuilderContext ctx) {
 		EngineHelper.verifyFields(this, ctx, Wrappers.cast(this.getClass()));
+		return true;
+	}
+
+
+	default boolean analyze(AnalyticContext ctx) {
+		EngineHelper.analyze(this, ctx, Wrappers.cast(this.getClass()));
 		return true;
 	}
 

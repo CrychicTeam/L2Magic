@@ -13,8 +13,8 @@ import dev.xkmc.l2magic.content.particle.engine.ParticleRenderType;
 public record EngineReg(L2Registrate reg) {
 
 	public <T extends Record & ConfiguredEngine<T>> Val<EngineType<T>>
-	reg(String id, EngineType<T> codec) {
-		return new Val.Registrate<>(reg.simple(id, EngineRegistry.ENGINE.key(), () -> codec));
+	reg(String id, EngineType.Factory<T> codec) {
+		return new Val.Registrate<>(reg.simple(id, EngineRegistry.ENGINE.key(), () -> new EngineType<>(codec.codec())));
 	}
 
 	public <T extends Record & EntitySelector<T>> Val<SelectorType<T>>
@@ -38,8 +38,8 @@ public record EngineReg(L2Registrate reg) {
 	}
 
 	public <T extends Record & EntityProcessor<T>> Val<ProcessorType<T>>
-	reg(String id, ProcessorType<T> codec) {
-		return new Val.Registrate<>(reg.simple(id, EngineRegistry.PROCESSOR.key(), () -> codec));
+	reg(String id, ProcessorType.Factory<T> codec) {
+		return new Val.Registrate<>(reg.simple(id, EngineRegistry.PROCESSOR.key(), () -> new ProcessorType<>(codec.codec())));
 	}
 
 	public <T extends Record & Motion<T>> Val<MotionType<T>>

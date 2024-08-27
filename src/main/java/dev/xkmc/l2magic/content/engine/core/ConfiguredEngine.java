@@ -5,6 +5,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.xkmc.l2core.util.DataGenOnly;
 import dev.xkmc.l2magic.content.engine.context.EngineContext;
+import dev.xkmc.l2magic.content.engine.extension.IExtended;
 import dev.xkmc.l2magic.content.engine.iterator.BlockInRangeIterator;
 import dev.xkmc.l2magic.content.engine.logic.DelayLogic;
 import dev.xkmc.l2magic.content.engine.logic.MoveEngine;
@@ -22,7 +23,7 @@ import java.util.Optional;
 import java.util.function.Function;
 
 public interface ConfiguredEngine<T extends Record & ConfiguredEngine<T>>
-		extends ParameterizedVerifiable {
+		extends ParameterizedVerifiable, IExtended<T> {
 
 	Codec<ConfiguredEngine<?>> CODEC = EngineRegistry.ENGINE.codec()
 			.dispatch(ConfiguredEngine::type, EngineType::codec);
