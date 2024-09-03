@@ -36,6 +36,7 @@ public record RemoveBlock(
 	@Override
 	public void execute(EngineContext ctx) {
 		var level = ctx.user().level();
+		if (level.isClientSide()) return;
 		var pos = BlockPos.containing(ctx.loc().pos());
 		var state = level.getBlockState(pos);
 		if (state.isAir()) return;

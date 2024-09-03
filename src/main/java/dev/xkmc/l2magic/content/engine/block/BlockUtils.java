@@ -32,6 +32,7 @@ public class BlockUtils {
 
 	public static void set(EngineContext ctx, BlockState state) {
 		var level = ctx.user().level();
+		if (level.isClientSide()) return;
 		var pos = BlockPos.containing(ctx.loc().pos());
 		var liquid = level.getFluidState(pos);
 		if (liquid.is(FluidTags.WATER) && state.hasProperty(BlockStateProperties.WATERLOGGED)) {

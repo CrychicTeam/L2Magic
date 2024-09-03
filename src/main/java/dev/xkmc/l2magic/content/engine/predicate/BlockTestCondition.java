@@ -9,23 +9,23 @@ import dev.xkmc.l2magic.content.engine.core.PredicateType;
 import dev.xkmc.l2magic.content.engine.helper.EngineHelper;
 import dev.xkmc.l2magic.init.registrate.EngineRegistry;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-
-import java.util.function.Predicate;
+import net.minecraft.world.level.material.PushReaction;
 
 public record BlockTestCondition(
 		Type test
 ) implements ContextPredicate<BlockTestCondition> {
 
 	public enum Type {
-		REPLACEABLE(BlockBehaviour.BlockStateBase::canBeReplaced),
-		REQUIRES_TOOL(BlockBehaviour.BlockStateBase::requiresCorrectToolForDrops),
-		BLOCKS_MOTION(BlockBehaviour.BlockStateBase::blocksMotion);
+		REPLACEABLE((e, l, p) -> e.canBeReplaced()),
+		REQUIRES_TOOL((e, l, p) -> e.requiresCorrectToolForDrops()),
+		BLOCKS_MOTION((e, l, p) -> e.blocksMotion()),
+		PUSHABLE(BlockTestCondition::pushable);
 
-		private final Predicate<BlockState> pred;
+		private final StateTest pred;
 
-		Type(Predicate<BlockState> pred) {
+		Type(StateTest pred) {
 			this.pred = pred;
 		}
 
@@ -33,6 +33,13 @@ public record BlockTestCondition(
 			return new BlockTestCondition(this);
 		}
 
+	}
+
+	private static boolean pushable(BlockState e, Level l, BlockPos p) {
+		var hardness = e.getDestroySpeed(l, p);
+		var push = e.getPistonPushReaction();
+		return hardness >= 0 && hardness <= 48 && l.getBlockEntity(p) == null &&
+				(push == PushReaction.NORMAL || push == PushReaction.PUSH_ONLY);
 	}
 
 	public static final Codec<Type> TYPE_CODEC = EngineHelper.enumCodec(Type.class, Type.values());
@@ -48,7 +55,15 @@ public record BlockTestCondition(
 
 	@Override
 	public boolean test(EngineContext ctx) {
-		return test.pred.test(ctx.user().level().getBlockState(BlockPos.containing(ctx.loc().pos())));
+		var l = ctx.user().level();
+		var p = BlockPos.containing(ctx.loc().pos());
+		return test.pred.test(l.getBlockState(p), l, p);
+	}
+
+	public interface StateTest {
+
+		boolean test(BlockState state, Level level, BlockPos pos);
+
 	}
 
 }

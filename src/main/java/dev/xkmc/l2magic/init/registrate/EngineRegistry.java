@@ -59,6 +59,7 @@ public class EngineRegistry {
 	public static final Val<ModifierType<SetNormalModifier>> NORMAL = REG.reg("set_normal", () -> SetNormalModifier.CODEC);
 	public static final Val<ModifierType<Dir2NormalModifier>> DIR_2_NORMAL = REG.reg("direction_to_normal", () -> Dir2NormalModifier.CODEC);
 	public static final Val<ModifierType<Normal2DirModifier>> NORMAL_2_DIR = REG.reg("normal_to_direction", () -> Normal2DirModifier.CODEC);
+	public static final Val<ModifierType<RandomDirModifier>> RAND_DIR = REG.reg("random_direction", () -> RandomDirModifier.CODEC);//TODO doc
 	public static final Val<ModifierType<ToCurrentCasterPosModifier>> TO_CASTER_POS = REG.reg("move_to_caster", () -> ToCurrentCasterPosModifier.CODEC);
 	public static final Val<ModifierType<ToCurrentCasterDirModifier>> TO_CASTER_DIR = REG.reg("align_with_caster", () -> ToCurrentCasterDirModifier.CODEC);
 

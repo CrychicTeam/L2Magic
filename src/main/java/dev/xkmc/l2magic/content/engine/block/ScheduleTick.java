@@ -29,6 +29,7 @@ public record ScheduleTick(
 	public void execute(EngineContext ctx) {
 		var pos = BlockPos.containing(ctx.loc().pos());
 		var level = ctx.user().level();
+		if (level.isClientSide()) return;
 		level.scheduleTick(pos, block, tick.eval(ctx));
 	}
 
