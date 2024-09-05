@@ -1,4 +1,4 @@
-package dev.xkmc.l2magic.content.item;
+package dev.xkmc.l2magic.content.item.spell;
 
 import dev.xkmc.l2itemselector.select.item.CircularSelector;
 import dev.xkmc.l2magic.content.engine.spell.SpellAction;

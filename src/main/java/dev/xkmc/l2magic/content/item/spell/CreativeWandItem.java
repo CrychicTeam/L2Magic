@@ -1,4 +1,4 @@
-package dev.xkmc.l2magic.content.item;
+package dev.xkmc.l2magic.content.item.spell;
 
 public class CreativeWandItem extends WandItem {
 

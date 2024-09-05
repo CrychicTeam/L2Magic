@@ -1,5 +1,8 @@
 {
   "item.l2magic.creative_wand": "创造法杖",
+  "item.l2magic.ai_config_wand": "AI控制手杖",
+  "item.l2magic.equipment_wand": "装备配置手杖",
+  "item.l2magic.target_select_wand": "攻击目标控制手杖",
   "itemGroup.l2magic.magic": "莱特兰·魔法引擎",
   "l2magic.title": "莱特兰·魔法引擎",
   "entity.l2magic.generic_projectile": "弹射物",
@@ -15,8 +18,13 @@
   "l2magic.spell_trigger_type.self_pos": "在施法者位置施法",
   "l2magic.spell_trigger_type.target_entity": "锁定目标实体位置施法",
   "l2magic.spell_trigger_type.target_pos": "在目标位置施法",
-
-
+  "l2magic.msg.ai": "配置实体%s：将NoAI设为%s",
+  "l2magic.msg.set_target": "让%s和%s对战",
+  "l2magic.msg.target_fail": "%s和%s无法对战",
+  "l2magic.msg.target_record": "选中实体%s",
+  "l2magic.item.wand.ai": "右键怪物移除或者恢复怪物AI",
+  "l2magic.item.wand.equipment": "右键怪物打开怪物装备栏，潜行右键打开怪物饰品栏",
+  "l2magic.item.wand.target": "右键2个怪物让它们互相攻击",
 
   "l2magic.command.fail": "Spell %s failed to execute",
   "l2magic.command.invalid_spell": "Invalid spell ID %s",
@@ -52,4 +60,5 @@
   "spell_action.l2magic.blazing_hammer": "Blazing Hammer",
   "spell_action.l2magic.glacial_domain": "Glacial Domain",
   "spell_action.l2magic.starfall": "Starfall"
+
 }

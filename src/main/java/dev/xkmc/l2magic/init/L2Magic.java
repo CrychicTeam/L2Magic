@@ -8,7 +8,7 @@ import dev.xkmc.l2itemselector.select.item.IItemSelector;
 import dev.xkmc.l2magic.content.engine.context.SpellUsePacket;
 import dev.xkmc.l2magic.content.engine.spell.SpellAction;
 import dev.xkmc.l2magic.content.entity.core.ProjectileConfig;
-import dev.xkmc.l2magic.content.item.CreativeSpellSelector;
+import dev.xkmc.l2magic.content.item.spell.CreativeSpellSelector;
 import dev.xkmc.l2magic.init.data.LMDatapackRegistriesGen;
 import dev.xkmc.l2magic.init.data.LMLangData;
 import dev.xkmc.l2magic.init.registrate.EngineRegistry;

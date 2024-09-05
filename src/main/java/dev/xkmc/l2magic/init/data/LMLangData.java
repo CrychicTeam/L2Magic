@@ -18,6 +18,15 @@ public enum LMLangData {
 	CMD_FAIL("command.fail", "Spell %s failed to execute", 1),
 	SPELL_CAST_TYPE("spell_cast_type", "Cast Type: %s", 1),
 	SPELL_TRIGGER_TYPE("spell_trigger_type", "Orientation: %s", 1),
+
+	MSG_AI("msg.ai", "Configure %s: Set NoAI to %s.", 2),
+	MSG_SET_TARGET("msg.set_target", "Set %s and %s to fight", 2),
+	MSG_TARGET_FAIL("msg.target_fail", "%s and %s cannot fight", 2),
+	MSG_TARGET_RECORD("msg.target_record", "Recorded %s", 1),
+	ITEM_WAND_AI("item.wand.ai", "Right click to remove or restore mob AI.", 0),
+	ITEM_WAND_EQUIPMENT("item.wand.equipment", "Right click to open mob equipment menu. Shift right click to open mob curios menu.", 0),
+	ITEM_WAND_TARGET("item.wand.target", "Right click 2 mobs to make them fight each other.", 0),
+
 	;
 
 	final String id, def;
