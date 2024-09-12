@@ -124,6 +124,10 @@ public class LMProjectile extends BaseProjectile {
 		}
 	}
 
+	public void onClientHitEntity(LivingEntity le) {
+		data.hurtTargetImpl(this, le);
+	}
+
 	public LocationContext location() {//TODO z-rot handling
 		return LocationContext.of(new Vec3(getX(), getY(0.5), getZ()), getForward());
 	}

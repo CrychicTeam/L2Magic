@@ -2,6 +2,7 @@ package dev.xkmc.l2magic.content.item.spell;
 
 import dev.xkmc.l2itemselector.select.item.CircularSelector;
 import dev.xkmc.l2magic.content.engine.spell.SpellAction;
+import dev.xkmc.l2magic.init.L2Magic;
 import dev.xkmc.l2magic.init.registrate.EngineRegistry;
 import dev.xkmc.l2magic.init.registrate.LMItems;
 import net.minecraft.Util;
@@ -35,7 +36,8 @@ public class CreativeSpellSelector extends CircularSelector<ResourceKey<SpellAct
 	public List<ResourceKey<SpellAction>> getAll(ItemStack stack) {
 		var reg = CommonHooks.resolveLookup(EngineRegistry.SPELL);
 		if (reg == null) return List.of();
-		return reg.listElementIds().toList();
+		var id = LMItems.MODID.getOrDefault(stack, L2Magic.MODID);
+		return reg.listElementIds().filter(e -> e.location().getNamespace().equals(id)).toList();
 	}
 
 	@Override

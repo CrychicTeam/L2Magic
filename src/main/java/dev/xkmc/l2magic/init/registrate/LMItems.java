@@ -38,6 +38,7 @@ public class LMItems {
 
 	private static final DCReg DC = DCReg.of(L2Magic.REG);
 	public static final DCVal<String> SPELL = DC.str("spell");
+	public static final DCVal<String> MODID = DC.str("modid");
 	public static final DCVal<Integer> TARGET = DC.intVal("target");
 
 	public static final EntityEntry<LMProjectile> GENERIC_PROJECTILE;
@@ -51,6 +52,7 @@ public class LMItems {
 				.item("creative_wand", p -> new CreativeWandItem(p.stacksTo(1)))
 				.model((ctx, pvd) -> pvd.handheld(ctx))
 				.tag(L2ISTagGen.SELECTABLE)
+				.tab(TAB.key(), (x,m)->x.get().fillTab(m))
 				.register();
 
 		WAND_TARGET = L2Magic.REGISTRATE.item(

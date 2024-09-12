@@ -6,6 +6,7 @@ import dev.xkmc.l2magic.content.engine.context.UserContext;
 import dev.xkmc.l2magic.content.engine.core.ConfiguredEngine;
 import dev.xkmc.l2magic.content.engine.helper.Scheduler;
 import dev.xkmc.l2magic.content.entity.renderer.ProjectileRenderer;
+import dev.xkmc.l2magic.init.L2Magic;
 import dev.xkmc.l2magic.init.registrate.EngineRegistry;
 import dev.xkmc.l2serial.serialization.marker.OnInject;
 import dev.xkmc.l2serial.serialization.marker.SerialClass;
@@ -96,11 +97,23 @@ public class ProjectileData {
 
 	public void hurtTarget(LMProjectile self, EntityHitResult result) {
 		if (getConfig(self.level()) == null) return;
+		if (!(result.getEntity() instanceof LivingEntity le)) return;
+		hurtTargetImpl(self, le);
+	}
+
+	public void hurtTargetImpl(LMProjectile self, LivingEntity le) {
 		var hit = config.hit();
 		if (hit.isEmpty()) return;
-		if (!(result.getEntity() instanceof LivingEntity le)) return;
 		EngineContext ctx = getContext(self, SALT_HIT, false);
 		if (ctx == null) return;
+		if (!self.level().isClientSide()) {
+			for (var e : hit) {
+				if (!e.serverOnly()) {
+					L2Magic.HANDLER.toTrackingPlayers(new ProjectileHitPacket(self.getId(), le.getId()), self);
+					break;
+				}
+			}
+		}
 		for (var e : hit) {
 			e.process(List.of(le), ctx);
 		}
