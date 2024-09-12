@@ -55,6 +55,9 @@ public class LMProjectile extends BaseProjectile {
 	public void tick() {
 		super.tick();
 		data.tick(this);
+		if (tickCount >= lifetime()) {
+			data.expire(this);
+		}
 	}
 
 	@Override
@@ -105,6 +108,7 @@ public class LMProjectile extends BaseProjectile {
 	@Override
 	protected void onHitBlock(BlockHitResult pResult) {
 		super.onHitBlock(pResult);
+		data.land(this);
 		if (!level().isClientSide) {
 			discard();
 		}

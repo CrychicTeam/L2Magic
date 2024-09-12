@@ -28,7 +28,9 @@ public record ProjectileConfig(
 		@Nullable ConfiguredEngine<?> tick,
 		List<EntityProcessor<?>> hit,
 		@Nullable ProjectileRenderData<?> renderer,
-		@Nullable DoubleVariable size
+		@Nullable DoubleVariable size,
+		@Nullable ConfiguredEngine<?> land,
+		@Nullable ConfiguredEngine<?> expire
 ) {
 
 	public static final Codec<ProjectileConfig> CODEC = RecordCodecBuilder.create(i -> i.group(
@@ -38,15 +40,19 @@ public record ProjectileConfig(
 			ConfiguredEngine.optionalCodec("tick", e -> e.tick),
 			EntityProcessor.CODEC.listOf().fieldOf("hit").forGetter(e -> e.hit),
 			ProjectileRenderData.CODEC.optionalFieldOf("renderer").forGetter(e -> Optional.ofNullable(e.renderer)),
-			DoubleVariable.optionalCodec("size", e -> e.size)
-	).apply(i, (params, filter, motion, tick, hit, render, size) -> new ProjectileConfig(
+			DoubleVariable.optionalCodec("size", e -> e.size),
+			ConfiguredEngine.optionalCodec("land", e -> e.land),
+			ConfiguredEngine.optionalCodec("expire", e -> e.expire)
+	).apply(i, (params, filter, motion, tick, hit, render, size, land, expire) -> new ProjectileConfig(
 			params.map(LinkedHashSet::new).orElse(new LinkedHashSet<>()),
 			filter.orElse(SelectionType.NONE),
 			motion.orElse(null),
 			tick.orElse(null),
 			hit,
 			render.orElse(null),
-			size.orElse(null)
+			size.orElse(null),
+			land.orElse(null),
+			expire.orElse(null)
 	)));
 
 	public static final Codec<Holder<ProjectileConfig>> HOLDER =
@@ -87,7 +93,7 @@ public record ProjectileConfig(
 		private final List<EntityProcessor<?>> hit = new ArrayList<>();
 
 		private @Nullable Motion<?> motion;
-		private @Nullable ConfiguredEngine<?> tick;
+		private @Nullable ConfiguredEngine<?> tick, land, expire;
 		private @Nullable ProjectileRenderData<?> renderer;
 		private @Nullable DoubleVariable size;
 
@@ -111,6 +117,16 @@ public record ProjectileConfig(
 			return this;
 		}
 
+		public Builder land(ConfiguredEngine<?> land) {
+			this.land = land;
+			return this;
+		}
+
+		public Builder expire(ConfiguredEngine<?> expire) {
+			this.expire = expire;
+			return this;
+		}
+
 		public Builder renderer(ProjectileRenderData<?> renderer) {
 			this.renderer = renderer;
 			return this;
@@ -122,7 +138,7 @@ public record ProjectileConfig(
 		}
 
 		public ProjectileConfig build() {
-			return new ProjectileConfig(params, filter, motion, tick, hit, renderer, size);
+			return new ProjectileConfig(params, filter, motion, tick, hit, renderer, size, land, expire);
 		}
 
 	}

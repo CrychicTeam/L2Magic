@@ -30,18 +30,19 @@ import java.util.Set;
 public class ProjectileData {
 
 	private static final int SALT_TICK = 0x342ab3c1, SALT_MOVE = 0xa6258bd1,
-			SALT_HIT = 0xb286c235, SALT_RENDER = 0x1134ba51, SALT_SIZE = 0x82f34eab;
+			SALT_HIT = 0xb286c235, SALT_RENDER = 0x1134ba51, SALT_SIZE = 0x82f34eab,
+			SALT_LAND = 0x17f1ab5d, SALT_EXPIRE = 0x75ab5e3f;
 
 	public static final Set<String> DEFAULT_PARAMS = Set.of("TickCount",
 			"ProjectileX", "ProjectileY", "ProjectileZ");
 
-	@SerialField(toClient = true)
+	@SerialField
 	public ProjectileParams params;
 
-	@SerialField(toClient = true)
+	@SerialField
 	private ResourceLocation id;
 
-	private boolean init;
+	private boolean init, landed, expired;
 
 	private ProjectileConfig config;
 
@@ -51,7 +52,7 @@ public class ProjectileData {
 
 	public ProjectileData(ProjectileParams params, Holder<ProjectileConfig> config) {
 		this.params = params;
-		this.id = config.unwrapKey().get().location();
+		this.id = config.unwrapKey().orElseThrow().location();
 		this.config = config.value();
 	}
 
@@ -125,6 +126,30 @@ public class ProjectileData {
 		if (tick == null) return;
 		EngineContext ctx = getContext(self, SALT_TICK, true);
 		if (ctx == null) return;
+		tick.execute(ctx);
+		ctx.registerScheduler();
+	}
+
+	public void land(LMProjectile self) {
+		if (landed) return;
+		if (getConfig(self.level()) == null) return;
+		ConfiguredEngine<?> tick = config.land();
+		if (tick == null) return;
+		EngineContext ctx = getContext(self, SALT_LAND, true);
+		if (ctx == null) return;
+		landed = true;
+		tick.execute(ctx);
+		ctx.registerScheduler();
+	}
+
+	public void expire(LMProjectile self) {
+		if (expired) return;
+		if (getConfig(self.level()) == null) return;
+		ConfiguredEngine<?> tick = config.expire();
+		if (tick == null) return;
+		EngineContext ctx = getContext(self, SALT_EXPIRE, true);
+		if (ctx == null) return;
+		expired = true;
 		tick.execute(ctx);
 		ctx.registerScheduler();
 	}
