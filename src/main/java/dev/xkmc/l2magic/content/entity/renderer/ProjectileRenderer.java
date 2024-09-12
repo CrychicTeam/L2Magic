@@ -6,7 +6,7 @@ import dev.xkmc.l2magic.content.entity.core.LMProjectile;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.resources.ResourceLocation;
 
-public interface ProjectileRenderer extends Verifiable {
+public interface ProjectileRenderer {
 
 	ResourceLocation getTexture();
 

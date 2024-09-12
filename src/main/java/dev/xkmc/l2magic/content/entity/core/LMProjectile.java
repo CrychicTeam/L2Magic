@@ -55,7 +55,13 @@ public class LMProjectile extends BaseProjectile {
 	public void tick() {
 		super.tick();
 		data.tick(this);
-		if (tickCount >= lifetime()) {
+	}
+
+	@Override
+	protected void projectileMove() {
+		super.projectileMove();
+		// before discard
+		if (!level().isClientSide && tickCount >= lifetime()) {
 			data.expire(this);
 		}
 	}
@@ -108,8 +114,8 @@ public class LMProjectile extends BaseProjectile {
 	@Override
 	protected void onHitBlock(BlockHitResult pResult) {
 		super.onHitBlock(pResult);
-		data.land(this);
 		if (!level().isClientSide) {
+			data.land(this);
 			discard();
 		}
 	}
@@ -130,6 +136,15 @@ public class LMProjectile extends BaseProjectile {
 
 	public void onClientHitEntity(LivingEntity le) {
 		data.hurtTargetImpl(this, le);
+	}
+
+
+	public void onClientExpire() {
+		data.expire(this);
+	}
+
+	public void onClientLand() {
+		data.land(this);
 	}
 
 	public LocationContext location() {//TODO z-rot handling

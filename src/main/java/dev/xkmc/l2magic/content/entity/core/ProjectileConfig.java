@@ -69,9 +69,12 @@ public record ProjectileConfig(
 		var noSche = BuilderContext.instant(L2Magic.LOGGER, id.toString(), allParams);
 		if (motion != null) motion.verify(noSche.of("motion"));
 		if (tick != null) tick.verify(withSche.of("tick"));
+		if (land != null) land.verify(withSche.of("land"));
+		if (expire != null) expire.verify(withSche.of("expire"));
 		for (int i = 0; i < hit.size(); i++)
 			hit.get(i).verify(noSche.of("hit_" + i));
 		if (size != null) size.verify(noSche.of("size"));
+		if (renderer != null) renderer.verify(noSche.of("renderer"));
 	}
 
 

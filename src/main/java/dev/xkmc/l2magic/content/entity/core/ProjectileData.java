@@ -42,7 +42,7 @@ public class ProjectileData {
 	@SerialField
 	private ResourceLocation id;
 
-	private boolean init, landed, expired;
+	private boolean init;
 
 	private ProjectileConfig config;
 
@@ -131,25 +131,27 @@ public class ProjectileData {
 	}
 
 	public void land(LMProjectile self) {
-		if (landed) return;
 		if (getConfig(self.level()) == null) return;
 		ConfiguredEngine<?> tick = config.land();
 		if (tick == null) return;
 		EngineContext ctx = getContext(self, SALT_LAND, true);
 		if (ctx == null) return;
-		landed = true;
+		if (!self.level().isClientSide()) {
+			L2Magic.HANDLER.toTrackingPlayers(new ProjectileLandPacket(self.getId()), self);
+		}
 		tick.execute(ctx);
 		ctx.registerScheduler();
 	}
 
 	public void expire(LMProjectile self) {
-		if (expired) return;
 		if (getConfig(self.level()) == null) return;
 		ConfiguredEngine<?> tick = config.expire();
 		if (tick == null) return;
 		EngineContext ctx = getContext(self, SALT_EXPIRE, true);
 		if (ctx == null) return;
-		expired = true;
+		if (!self.level().isClientSide()) {
+			L2Magic.HANDLER.toTrackingPlayers(new ProjectileExpirePacket(self.getId()), self);
+		}
 		tick.execute(ctx);
 		ctx.registerScheduler();
 	}

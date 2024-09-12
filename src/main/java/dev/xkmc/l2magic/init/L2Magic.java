@@ -8,7 +8,9 @@ import dev.xkmc.l2itemselector.select.item.IItemSelector;
 import dev.xkmc.l2magic.content.engine.context.SpellUsePacket;
 import dev.xkmc.l2magic.content.engine.spell.SpellAction;
 import dev.xkmc.l2magic.content.entity.core.ProjectileConfig;
+import dev.xkmc.l2magic.content.entity.core.ProjectileExpirePacket;
 import dev.xkmc.l2magic.content.entity.core.ProjectileHitPacket;
+import dev.xkmc.l2magic.content.entity.core.ProjectileLandPacket;
 import dev.xkmc.l2magic.content.item.spell.CreativeSpellSelector;
 import dev.xkmc.l2magic.init.data.LMDatapackRegistriesGen;
 import dev.xkmc.l2magic.init.data.LMLangData;
@@ -36,7 +38,9 @@ public class L2Magic {
 	public static final PacketHandlerWithConfig HANDLER = new PacketHandlerWithConfig(
 			MODID, 1,
 			e -> e.create(SpellUsePacket.class, PacketHandler.NetDir.PLAY_TO_CLIENT),
-			e -> e.create(ProjectileHitPacket.class, PacketHandler.NetDir.PLAY_TO_CLIENT)
+			e -> e.create(ProjectileHitPacket.class, PacketHandler.NetDir.PLAY_TO_CLIENT),
+			e -> e.create(ProjectileLandPacket.class, PacketHandler.NetDir.PLAY_TO_CLIENT),
+			e -> e.create(ProjectileExpirePacket.class, PacketHandler.NetDir.PLAY_TO_CLIENT)
 	);
 	public static final Logger LOGGER = LogManager.getLogger();
 	public static final Reg REG = new Reg(MODID);
