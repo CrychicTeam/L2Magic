@@ -40,7 +40,7 @@ public record CustomProjectileShoot(
 					.forGetter(e -> Optional.of(e.params))
 	).apply(i, (s, c, l, w, e, p) -> new CustomProjectileShoot(
 			s.orElse(DoubleVariable.of("3")), c, l,
-			w.orElse(false), w.orElse(false), p.orElse(Map.of())
+			w.orElse(false), e.orElse(false), p.orElse(Map.of())
 	)));
 
 	@Override

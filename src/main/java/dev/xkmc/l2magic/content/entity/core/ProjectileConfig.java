@@ -28,7 +28,7 @@ public record ProjectileConfig(
 		@Nullable ConfiguredEngine<?> tick,
 		List<EntityProcessor<?>> hit,
 		@Nullable ProjectileRenderData<?> renderer,
-		@Nullable DoubleVariable size,
+		@Nullable BoundingData size,
 		@Nullable ConfiguredEngine<?> land,
 		@Nullable ConfiguredEngine<?> expire
 ) {
@@ -40,7 +40,7 @@ public record ProjectileConfig(
 			ConfiguredEngine.optionalCodec("tick", e -> e.tick),
 			EntityProcessor.CODEC.listOf().fieldOf("hit").forGetter(e -> e.hit),
 			ProjectileRenderData.CODEC.optionalFieldOf("renderer").forGetter(e -> Optional.ofNullable(e.renderer)),
-			DoubleVariable.optionalCodec("size", e -> e.size),
+			BoundingData.CODEC.optionalFieldOf("size").forGetter(e -> Optional.ofNullable(e.size)),
 			ConfiguredEngine.optionalCodec("land", e -> e.land),
 			ConfiguredEngine.optionalCodec("expire", e -> e.expire)
 	).apply(i, (params, filter, motion, tick, hit, render, size, land, expire) -> new ProjectileConfig(
@@ -98,7 +98,7 @@ public record ProjectileConfig(
 		private @Nullable Motion<?> motion;
 		private @Nullable ConfiguredEngine<?> tick, land, expire;
 		private @Nullable ProjectileRenderData<?> renderer;
-		private @Nullable DoubleVariable size;
+		private @Nullable BoundingData size;
 
 		private Builder(SelectionType filter, String... params) {
 			this.filter = filter;
@@ -136,6 +136,11 @@ public record ProjectileConfig(
 		}
 
 		public Builder size(DoubleVariable size) {
+			this.size = new BoundingData(size, false);
+			return this;
+		}
+
+		public Builder size(BoundingData size) {
 			this.size = size;
 			return this;
 		}

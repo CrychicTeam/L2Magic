@@ -183,7 +183,14 @@ public class ProjectileData {
 		if (size == null) return 0;
 		EngineContext ctx = getContext(e, SALT_SIZE, false);
 		if (ctx == null) return 0;
-		return size.eval(ctx);
+		return size.size().eval(ctx);
+	}
+
+	public boolean doFullBlockCollision(LMProjectile e) {
+		if (getConfig(e.level()) == null) return false;
+		var size = config.size();
+		if (size == null) return false;
+		return size.fullBlockCollision();
 	}
 
 }

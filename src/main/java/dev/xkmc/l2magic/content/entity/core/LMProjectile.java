@@ -59,6 +59,17 @@ public class LMProjectile extends BaseProjectile {
 
 	@Override
 	protected void projectileMove() {
+		// before move
+		if (!level().isClientSide && !data.params.bypassWall() && data.doFullBlockCollision(this)) {
+			var aabb = getBoundingBoxForEntityHit().expandTowards(getDeltaMovement());
+			var list = this.level().getBlockCollisions(this, aabb);
+			for (var e : list) {
+				data.land(this);
+				discard();
+				break;
+			}
+		}
+
 		super.projectileMove();
 		// before discard
 		if (!level().isClientSide && tickCount >= lifetime()) {
@@ -78,7 +89,7 @@ public class LMProjectile extends BaseProjectile {
 
 	@Override
 	public boolean checkBlockHit() {
-		return !data.params.bypassWall();
+		return !data.doFullBlockCollision(this) && !data.params.bypassWall();
 	}
 
 	@Override
